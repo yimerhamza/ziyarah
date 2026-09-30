@@ -1,0 +1,3035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ZIYARAH DIGITAL BUSINESS GROUP</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--b900:#062a26;--b800:#0b3d36;--b700:#0f5248;--b600:#146b5d;--gold:#c9a227;--bg:#f6f8f8;}
+  *{font-family:'Inter',system-ui,sans-serif;}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;}
+  body{background:var(--bg);}
+  .nav-link{transition:.15s;border-left:3px solid transparent;color:#5a6b68;cursor:pointer;display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;font-size:.875rem;}
+  .nav-link:hover{background:#eef3f2;color:var(--b700);}
+  .nav-link.active{background:#e8f2f0;color:var(--b700);border-left-color:var(--gold);font-weight:600;}
+  .nav-link .nav-icon{color:#8a9a97;width:18px;text-align:center;}
+  .nav-link.active .nav-icon{color:var(--b600);}
+  .inp{width:100%;border:1px solid #d4dcda;border-radius:.55rem;padding:.55rem .8rem;font-size:.875rem;outline:none;background:#fff;transition:.15s;}
+  .inp:focus{border-color:var(--b600);box-shadow:0 0 0 3px rgba(26,136,116,.12);}
+  .btn{border-radius:.55rem;padding:.55rem 1rem;font-size:.8125rem;font-weight:600;cursor:pointer;border:none;transition:.15s;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;white-space:nowrap;}
+  .btn:disabled{opacity:.5;cursor:not-allowed;}
+  .btn-p{background:var(--b700);color:#fff;}.btn-p:hover:not(:disabled){background:var(--b800);}
+  .btn-gold{background:var(--gold);color:#fff;}.btn-gold:hover:not(:disabled){background:#b08e1e;}
+  .btn-g{background:#059669;color:#fff;}.btn-g:hover:not(:disabled){background:#047857;}
+  .btn-r{background:#dc2626;color:#fff;}.btn-r:hover:not(:disabled){background:#b91c1c;}
+  .btn-s{background:#e8edec;color:var(--b800);}.btn-s:hover:not(:disabled){background:#d4dcda;}
+  .btn-xs{padding:.3rem .6rem;font-size:.72rem;}
+  .card{background:#fff;border:1px solid #e5ebe9;border-radius:.85rem;box-shadow:0 1px 2px rgba(6,42,38,.03);}
+  table{width:100%;border-collapse:collapse;font-size:.875rem;}
+  th{text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:#7a8a87;padding:.6rem .75rem;border-bottom:1px solid #e5ebe9;font-weight:700;}
+  td{padding:.65rem .75rem;border-bottom:1px solid #f1f5f4;vertical-align:middle;}
+  tr:last-child td{border-bottom:none;}
+  .pill{display:inline-block;padding:.15rem .55rem;border-radius:999px;font-size:.66rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;}
+  .brand-gradient{background:linear-gradient(135deg,var(--b900) 0%,var(--b700) 55%,var(--b600) 100%);}
+  .gold-underline{position:relative;}
+  .gold-underline::after{content:'';position:absolute;bottom:-6px;left:0;width:48px;height:3px;background:var(--gold);border-radius:2px;}
+  #toast{position:fixed;top:1.25rem;right:1.25rem;z-index:100;display:flex;flex-direction:column;gap:.5rem;max-width:380px;}
+  .toast-item{padding:.7rem 1rem;border-radius:.6rem;font-size:.83rem;font-weight:600;color:#fff;box-shadow:0 6px 20px rgba(0,0,0,.15);animation:slideIn .25s ease;}
+  @keyframes slideIn{from{transform:translateX(120%);opacity:0}to{transform:translateX(0);opacity:1}}
+  .toast-ok{background:#059669;}.toast-err{background:#dc2626;}.toast-info{background:var(--b700);}
+  .kpi-value{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;}
+  .divider{height:1px;background:#e5ebe9;margin:.9rem 0;}
+  .empty{padding:2rem;text-align:center;color:#9aa8a5;font-size:.85rem;}
+  .modal-bg{position:fixed;inset:0;background:rgba(6,42,38,.45);display:none;align-items:center;justify-content:center;z-index:90;padding:1rem;}
+  .modal-bg.show{display:flex;}
+  .modal{background:#fff;border-radius:1rem;max-width:640px;width:100%;max-height:90vh;overflow:auto;position:relative;}
+  .sidebar{width:230px;transition:transform .2s;}
+  @media(max-width:1023px){
+    .sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);z-index:50;}
+    .sidebar.open{transform:translateX(0);}
+    .sidebar-bg{position:fixed;inset:0;background:rgba(6,42,38,.4);z-index:49;display:none;}
+    .sidebar-bg.show{display:block;}
+  }
+  ::-webkit-scrollbar{width:8px;height:8px;}
+  ::-webkit-scrollbar-thumb{background:#c8d2d0;border-radius:4px;}
+  pre{font-family:'JetBrains Mono',monospace;}
+  .modal-close{position:absolute;top:.75rem;right:.75rem;background:transparent;border:none;font-size:1.5rem;color:#94a3b8;cursor:pointer;line-height:1;padding:0;}
+  .modal-close:hover{color:#0f172a;}
+  .env-badge{position:fixed;bottom:1rem;left:1rem;z-index:80;padding:.35rem .7rem;border-radius:.4rem;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:#059669;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.15);}
+  .action-btns{display:flex;gap:.3rem;justify-content:flex-end;flex-wrap:wrap;}
+  .search-box{position:relative;}
+  .search-box::before{content:'⌕';position:absolute;left:.75rem;top:.5rem;color:#94a3b8;font-size:1.1rem;pointer-events:none;}
+  .search-box .inp{padding-left:2.25rem;}
+  .onboard-card{background:#fff;border:1px solid #e5ebe9;border-radius:.85rem;padding:1.25rem;transition:.15s;cursor:pointer;text-align:left;width:100%;}
+  .onboard-card:hover{border-color:var(--b600);box-shadow:0 4px 16px rgba(15,82,72,.08);transform:translateY(-1px);}
+  .onboard-icon{width:44px;height:44px;border-radius:.65rem;display:grid;place-items:center;font-size:1.25rem;font-weight:800;}
+  .progress-step{display:flex;align-items:center;gap:.75rem;padding:.65rem;border-radius:.5rem;}
+  .progress-step.done{background:#ecfdf5;}
+  .progress-step.pending{background:#f8fafb;}
+  .step-dot{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.7rem;font-weight:800;flex-shrink:0;}
+</style>
+</head>
+<body>
+
+<div class="env-badge">● LOCAL</div>
+
+<div class="flex min-h-screen">
+  <div class="sidebar-bg" id="sidebarBg" onclick="toggleSidebar()"></div>
+
+  <aside class="sidebar bg-white border-r border-[#e5ebe9] flex flex-col fixed lg:sticky top-0 h-screen z-50" id="sidebar">
+    <div class="brand-gradient text-white p-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-white/10 border border-white/15 grid place-items-center shrink-0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e0b83a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <div class="font-extrabold text-[13px] leading-tight truncate">ZIYARAH</div>
+          <div class="text-[10px] text-white/60 leading-tight tracking-wider truncate">DIGITAL BUSINESS GROUP</div>
+        </div>
+      </div>
+    </div>
+    <nav class="flex-1 overflow-y-auto py-3" id="navMenu"></nav>
+    <div class="p-4 border-t border-[#e5ebe9] text-[11px] text-slate-400">
+      <div class="flex justify-between mb-1"><span>Currency</span><span class="mono font-bold" id="sideCurrency">—</span></div>
+      <div class="flex justify-between"><span>Records</span><span class="mono" id="sideRecords">0</span></div>
+    </div>
+  </aside>
+
+  <div class="flex-1 min-w-0 flex flex-col">
+    <header class="bg-white border-b border-[#e5ebe9] sticky top-0 z-30">
+      <div class="px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <button class="lg:hidden btn btn-s !p-2" onclick="toggleSidebar()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+          </button>
+          <div class="min-w-0">
+            <div class="text-[11px] text-slate-400 leading-tight" id="breadcrumb">Home</div>
+            <div class="text-sm font-bold text-[#062a26] leading-tight truncate" id="pageTitle">Dashboard</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button class="btn btn-s !py-2 !px-3 text-xs" onclick="go('settings')">⚙</button>
+          <div class="flex items-center gap-2 pl-2 border-l border-[#e5ebe9]">
+            <div class="w-8 h-8 rounded-full brand-gradient grid place-items-center text-white text-xs font-bold" id="userAvatar">?</div>
+            <div class="hidden md:block">
+              <div class="text-xs font-bold text-slate-700 leading-tight" id="userName">—</div>
+              <div class="text-[10px] text-slate-400 leading-tight" id="userRole">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="view" class="flex-1 p-4 sm:p-6 pb-20"></main>
+
+    <footer class="border-t border-[#e5ebe9] bg-white px-4 sm:px-6 py-3 text-xs text-slate-400 flex justify-between flex-wrap gap-2">
+      <span>© <span id="year"></span> ZIYARAH DIGITAL BUSINESS GROUP</span>
+      <span><span id="footerRecords">0</span> records · <span id="footerSize">0 KB</span></span>
+    </footer>
+  </div>
+</div>
+
+<div id="toast"></div>
+<div id="modal" class="modal-bg" onclick="if(event.target===this)closeModal()">
+  <div class="modal p-6" id="modalContent"></div>
+</div>
+
+<script>
+'use strict';
+
+/* ============================================================
+   CONFIG
+   ============================================================ */
+const CONFIG = {
+  env: 'local',
+  schemaVersion: 7,
+  storageKey: 'ziyarah_dbg_v7',
+  brand: { name: 'ZIYARAH DIGITAL BUSINESS GROUP', short: 'ZIYARAH', sub: 'DIGITAL BUSINESS GROUP' },
+  org: {
+    slug: 'ziyarah-dbg', legalName: '',
+    country: 'ET', currency: 'ETB', symbol: 'Br', sharePrice: 100, founded: '',
+  },
+  rules: {
+    defaultInterestRate: 10, defaultTermMonths: 6,
+    maxLoanMultiplier: 3, dividendCapPercent: 50, minSavingsForLoan: 1000,
+  },
+  roles: {
+    ADMIN: 'Administrator', TREASURER: 'Treasurer', LOAN_OFFICER: 'Loan Officer',
+    AUDITOR: 'Auditor', MEMBER: 'Member',
+  },
+  statuses: {
+    member: ['ACTIVE','SUSPENDED','EXITED'],
+    unit: ['PLANNING','ACTIVE','PAUSED','CLOSED'],
+  },
+  nav: [
+    { section: 'Overview' },
+    { route: 'dashboard', label: 'Dashboard', icon: '◈' },
+    { section: 'People' },
+    { route: 'members',  label: 'Members',       icon: '◉' },
+    { route: 'units',    label: 'Business Units', icon: '▣' },
+    { section: 'Money' },
+    { route: 'savings',  label: 'Savings',    icon: '◐' },
+    { route: 'loans',    label: 'Loans',      icon: '◑' },
+    { route: 'support',  label: 'Support',    icon: '♡' },
+    { route: 'shares',   label: 'Shares',     icon: '◆' },
+    { section: 'Records' },
+    { route: 'ledger',   label: 'Ledger',     icon: '▤' },
+    { route: 'reports',  label: 'Reports',    icon: '▦' },
+    { route: 'settings', label: 'Settings',   icon: '⚙' },
+  ],
+  systemAccounts: [
+    { code: '1000', name: 'Cash & Bank',      type: 'ASSET',     normal: 'DEBIT'  },
+    { code: '2200', name: 'Dividends Payable',type: 'LIABILITY', normal: 'CREDIT' },
+    { code: '3100', name: 'Group Equity',     type: 'EQUITY',    normal: 'CREDIT' },
+    { code: '4000', name: 'Interest Income',  type: 'INCOME',    normal: 'CREDIT' },
+  ],
+};
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+const uid   = p => p + Math.random().toString(36).slice(2, 9);
+const esc   = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const num   = v => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
+const round = n => Math.round(n * 100) / 100;
+const fmt   = n => Number(n || 0).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+const money = n => `${state?.org?.symbol || 'Br'} ${fmt(n)}`;
+const dtShort = iso => new Date(iso).toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'});
+const dtLong  = iso => new Date(iso).toLocaleString(undefined, {dateStyle:'medium', timeStyle:'short'});
+const mName = id => (state.members.find(m => m.id === id) || {}).name || '—';
+const cName = id => (state.campaigns.find(c => c.id === id) || {}).name || '—';
+const initials = n => String(n || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+
+/* ============================================================
+   STATE + DB
+   ============================================================ */
+let state = null;
+let currentUser = null;
+
+const DB = {
+  load(){ try { return JSON.parse(localStorage.getItem(CONFIG.storageKey)); } catch { return null; } },
+  save(){
+    try {
+      state.updatedAt = new Date().toISOString();
+      localStorage.setItem(CONFIG.storageKey, JSON.stringify(state));
+      updateStats();
+    } catch (e) { console.error(e); toast('Save failed: ' + e.message, 'err'); }
+  },
+  clear(){ localStorage.removeItem(CONFIG.storageKey); },
+  sizeKB(){ return ((localStorage.getItem(CONFIG.storageKey) || '').length / 1024).toFixed(1); },
+  count(){
+    if (!state) return 0;
+    return ['members','units','accounts','journalEntries','journalLines','loans','campaigns',
+            'shareholdings','notifications','auditLogs']
+      .reduce((s, k) => s + (state[k]?.length || 0), 0);
+  },
+  export(){
+    const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `ziyarah-backup-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+  },
+  import(file){
+    return new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = e => {
+        try {
+          const d = JSON.parse(e.target.result);
+          if (!d.org || !Array.isArray(d.members)) throw new Error('Invalid file structure');
+          state = d; DB.save(); resolve();
+        } catch (err) { reject(err); }
+      };
+      r.onerror = () => reject(new Error('Could not read file'));
+      r.readAsText(file);
+    });
+  },
+};
+
+/* ============================================================
+   LEDGER
+   ============================================================ */
+const Ledger = {
+  account(code){ return state.accounts.find(a => a.code === code); },
+  balance(code){ const a = Ledger.account(code); return a ? round(num(a.balance)) : 0; },
+  totalByType(t){ return round(state.accounts.filter(a => a.type === t).reduce((s, a) => s + num(a.balance), 0)); },
+  totalByPrefix(p){ return round(state.accounts.filter(a => a.code.startsWith(p)).reduce((s, a) => s + num(a.balance), 0)); },
+
+  post({ description, type, reference, lines, metadata }){
+    const dr = lines.reduce((s, l) => s + num(l.debit), 0);
+    const cr = lines.reduce((s, l) => s + num(l.credit), 0);
+    if (Math.abs(dr - cr) > 0.001)
+      throw new Error(`Unbalanced entry (Dr ${dr.toFixed(2)} ≠ Cr ${cr.toFixed(2)})`);
+
+    const resolved = lines.filter(l => num(l.debit) || num(l.credit)).map(l => {
+      const acc = Ledger.account(l.accountCode);
+      if (!acc) throw new Error(`Account not found: ${l.accountCode}`);
+      return { acc, debit: round(num(l.debit)), credit: round(num(l.credit)), memo: l.memo };
+    });
+
+    const entry = {
+      id: uid('je_'), date: new Date().toISOString(), description, type,
+      reference: reference || null, metadata: metadata || {},
+      createdById: currentUser?.id || 'system',
+    };
+    state.journalEntries.push(entry);
+
+    for (const r of resolved) {
+      state.journalLines.push({
+        id: uid('jl_'), journalEntryId: entry.id, accountId: r.acc.id,
+        debit: r.debit, credit: r.credit, memo: r.memo || null,
+      });
+      const isDebitNormal = r.acc.normal === 'DEBIT';
+      const delta = r.debit - r.credit;
+      r.acc.balance = round(num(r.acc.balance) + (isDebitNormal ? delta : -delta));
+    }
+    return entry;
+  },
+
+  reverse(entryId, reason){
+    const entry = state.journalEntries.find(e => e.id === entryId);
+    if (!entry) throw new Error('Entry not found');
+    if (entry.reversedAt) throw new Error('Entry already reversed');
+
+    const lines = state.journalLines.filter(l => l.journalEntryId === entryId);
+
+    for (const l of lines) {
+      const acc = state.accounts.find(a => a.id === l.accountId);
+      if (!acc) continue;
+      if (acc.normal === 'CREDIT') {
+        const reversalDelta = num(l.credit) - num(l.debit);
+        const postBalance = num(acc.balance) - reversalDelta;
+        if (postBalance < -0.01) {
+          throw new Error(
+            `Cannot reverse: ${acc.name} would go negative (${money(postBalance)}). ` +
+            `Adjust the account first.`
+          );
+        }
+      }
+    }
+
+    const reversed = lines.map(l => {
+      const acc = state.accounts.find(a => a.id === l.accountId);
+      return { accountCode: acc.code, debit: num(l.credit), credit: num(l.debit), memo: 'Reversal' };
+    });
+
+    const rev = Ledger.post({
+      description: `REVERSAL · ${entry.description}${reason ? ' — ' + reason : ''}`,
+      type: 'REVERSAL',
+      reference: entry.id,
+      lines: reversed,
+      metadata: { reversalOf: entryId, reason },
+    });
+    entry.reversedAt = new Date().toISOString();
+    return rev;
+  },
+
+  verify(){
+    let dr = 0, cr = 0;
+    for (const l of state.journalLines) { dr += num(l.debit); cr += num(l.credit); }
+    return { balanced: Math.abs(dr - cr) < 0.01, debit: round(dr), credit: round(cr) };
+  },
+
+  rebuild(){
+    state.accounts.forEach(a => a.balance = 0);
+    for (const line of state.journalLines) {
+      const acc = state.accounts.find(a => a.id === line.accountId);
+      if (!acc) continue;
+      const isDebitNormal = acc.normal === 'DEBIT';
+      const delta = num(line.debit) - num(line.credit);
+      acc.balance = round(num(acc.balance) + (isDebitNormal ? delta : -delta));
+    }
+  },
+};
+
+/* ============================================================
+   AUDIT
+   ============================================================ */
+function audit(action, entityType, entityId, before, after){
+  state.auditLogs.push({
+    id: uid('al_'), action, entityType, entityId,
+    before: before || null, after: after || null,
+    userId: currentUser?.id || 'system',
+    createdAt: new Date().toISOString(),
+  });
+}
+
+/* ============================================================
+   ACCOUNT OPENERS
+   ============================================================ */
+function ensureSystemAccounts(){
+  CONFIG.systemAccounts.forEach(sa => {
+    if (!Ledger.account(sa.code)) {
+      state.accounts.push({
+        id: uid('ac_'), code: sa.code, name: sa.name,
+        type: sa.type, normal: sa.normal, balance: 0,
+        membershipId: null, isSystem: true,
+      });
+    }
+  });
+}
+
+function ensureMemberAccounts(memberId){
+  const defs = [
+    { code: `SAV-${memberId}`,  name: 'Member Savings',  type: 'LIABILITY', normal: 'CREDIT' },
+    { code: `LOAN-${memberId}`, name: 'Loan Receivable', type: 'ASSET',     normal: 'DEBIT'  },
+    { code: `SHR-${memberId}`,  name: 'Share Capital',   type: 'EQUITY',    normal: 'CREDIT' },
+  ];
+  defs.forEach(d => {
+    if (!Ledger.account(d.code)) {
+      state.accounts.push({
+        id: uid('ac_'), code: d.code, name: d.name,
+        type: d.type, normal: d.normal, balance: 0,
+        membershipId: memberId, isSystem: false,
+      });
+    }
+  });
+}
+
+function ensureUnitAccount(unitId, unitName){
+  const code = `UNIT-${unitId}`;
+  if (!Ledger.account(code)) {
+    state.accounts.push({
+      id: uid('ac_'), code, name: `Unit Capital · ${unitName}`,
+      type: 'EQUITY', normal: 'CREDIT', balance: 0,
+      unitId, isSystem: false,
+    });
+  }
+}
+
+function ensureCampaignAccount(campaignId, campaignName){
+  const code = `CAMP-${campaignId}`;
+  if (!Ledger.account(code)) {
+    state.accounts.push({
+      id: uid('ac_'), code, name: `Support Fund · ${campaignName}`,
+      type: 'LIABILITY', normal: 'CREDIT', balance: 0,
+      membershipId: null, isSystem: false,
+    });
+  }
+}
+
+/* ============================================================
+   MEMBER SERVICE
+   ============================================================ */
+const MemberService = {
+  list(){ return state.members.filter(m => !m.deletedAt); },
+
+  create({ name, phone, email, role, status }){
+    name = (name || '').trim();
+    if (!name) throw new Error('Name is required');
+    if (phone && state.members.some(m => m.phone === phone && !m.deletedAt))
+      throw new Error('Phone already registered');
+
+    const member = {
+      id: uid('m_'),
+      name, phone: (phone || '').trim(), email: (email || '').trim(),
+      role: role || 'MEMBER', status: status || 'ACTIVE',
+      memberNumber: 'ZDBG-' + String(state.members.length + 1).padStart(4, '0'),
+      joinedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    state.members.push(member);
+    ensureMemberAccounts(member.id);
+    if (!state.shareholdings.find(s => s.membershipId === member.id))
+      state.shareholdings.push({ id: uid('sh_'), membershipId: member.id, sharesOwned: 0, totalInvested: 0 });
+    audit('member.create', 'Member', member.id, null, member);
+    return member;
+  },
+
+  update(id, patch){
+    const m = state.members.find(x => x.id === id);
+    if (!m) throw new Error('Member not found');
+    const before = { ...m };
+    Object.assign(m, patch, { updatedAt: new Date().toISOString() });
+    audit('member.update', 'Member', id, before, patch);
+    return m;
+  },
+
+  remove(id){
+    const m = state.members.find(x => x.id === id);
+    if (!m) throw new Error('Member not found');
+    if (state.loans.some(l => l.membershipId === id && l.status === 'DISBURSED'))
+      throw new Error('Cannot delete: member has an active loan');
+
+    const sav  = Ledger.balance(`SAV-${id}`);
+    const loan = Ledger.balance(`LOAN-${id}`);
+    const shr  = Ledger.balance(`SHR-${id}`);
+    if (Math.abs(sav) > 0.01 || Math.abs(loan) > 0.01 || Math.abs(shr) > 0.01) {
+      throw new Error(
+        `Cannot delete: member has balances (Savings ${money(sav)}, Loan ${money(loan)}, Shares ${money(shr)}).`
+      );
+    }
+    m.deletedAt = new Date().toISOString();
+    m.status = 'EXITED';
+    audit('member.delete', 'Member', id, { name: m.name }, null);
+  },
+
+  forceRemove(id){
+    const m = state.members.find(x => x.id === id);
+    if (!m) throw new Error('Member not found');
+    if (state.loans.some(l => l.membershipId === id && l.status === 'DISBURSED'))
+      throw new Error('Cannot force delete: member has an active loan.');
+
+    const sav  = Ledger.balance(`SAV-${id}`);
+    const loan = Ledger.balance(`LOAN-${id}`);
+    const shr  = Ledger.balance(`SHR-${id}`);
+
+    if (Math.abs(sav) > 0.01) {
+      if (sav > 0) {
+        Ledger.post({
+          description: `Member exit payout · ${m.name}`,
+          type: 'ADJUSTMENT',
+          lines: [
+            { accountCode: `SAV-${id}`, debit: sav },
+            { accountCode: '1000', credit: sav },
+          ],
+          metadata: { memberId: id, amount: sav, reason: 'exit_payout' },
+        });
+      } else {
+        Ledger.post({
+          description: `Negative savings write-off · ${m.name}`,
+          type: 'ADJUSTMENT',
+          lines: [
+            { accountCode: `SAV-${id}`, debit: Math.abs(sav) },
+            { accountCode: '3100', credit: Math.abs(sav) },
+          ],
+          metadata: { memberId: id, amount: sav, reason: 'write_off' },
+        });
+      }
+    }
+
+    if (Math.abs(loan) > 0.01) {
+      Ledger.post({
+        description: `Loan residual write-off · ${m.name}`,
+        type: 'ADJUSTMENT',
+        lines: [
+          { accountCode: '3100', debit: Math.abs(loan) },
+          { accountCode: `LOAN-${id}`, credit: Math.abs(loan) },
+        ],
+        metadata: { memberId: id, amount: loan, reason: 'write_off' },
+      });
+    }
+
+    if (Math.abs(shr) > 0.01) {
+      Ledger.post({
+        description: `Share redemption · ${m.name}`,
+        type: 'ADJUSTMENT',
+        lines: [
+          { accountCode: `SHR-${id}`, debit: shr },
+          { accountCode: '1000', credit: shr },
+        ],
+        metadata: { memberId: id, amount: shr, reason: 'share_redemption' },
+      });
+    }
+
+    const sh = state.shareholdings.find(s => s.membershipId === id);
+    if (sh) { sh.sharesOwned = 0; sh.totalInvested = 0; }
+
+    m.deletedAt = new Date().toISOString();
+    m.status = 'EXITED';
+    audit('member.force_delete', 'Member', id,
+      { name: m.name, balances: { sav, loan, shr } }, null);
+  },
+};
+
+/* ============================================================
+   UNIT SERVICE
+   ============================================================ */
+const UnitService = {
+  list(){ return state.units.filter(u => !u.deletedAt); },
+
+  create({ name, description, managerId, capital, status, category }){
+    name = (name || '').trim();
+    if (!name) throw new Error('Unit name required');
+    if (state.units.some(u => u.name === name && !u.deletedAt))
+      throw new Error('A unit with this name already exists');
+
+    const unit = {
+      id: uid('u_'),
+      code: 'BU-' + String(state.units.length + 1).padStart(3, '0'),
+      name,
+      description: (description || '').trim(),
+      managerId: managerId || null,
+      category: (category || 'General').trim(),
+      initialCapital: round(num(capital)),
+      status: status || 'PLANNING',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    state.units.push(unit);
+    ensureUnitAccount(unit.id, unit.name);
+
+    if (unit.initialCapital > 0) {
+      Ledger.post({
+        description: `Capital allocation · ${unit.name}`,
+        type: 'CAPITAL_INJECTION',
+        reference: unit.code,
+        lines: [
+          { accountCode: '1000', debit: unit.initialCapital },
+          { accountCode: `UNIT-${unit.id}`, credit: unit.initialCapital },
+        ],
+        metadata: { unitId: unit.id, amount: unit.initialCapital },
+      });
+    }
+    audit('unit.create', 'BusinessUnit', unit.id, null, unit);
+    return unit;
+  },
+
+  update(id, patch){
+    const u = state.units.find(x => x.id === id);
+    if (!u) throw new Error('Unit not found');
+    const before = { ...u };
+
+    if (patch.initialCapital !== undefined && round(num(patch.initialCapital)) !== num(u.initialCapital)) {
+      const diff = round(num(patch.initialCapital) - num(u.initialCapital));
+      if (diff > 0) {
+        Ledger.post({
+          description: `Capital increase · ${u.name}`,
+          type: 'CAPITAL_INJECTION',
+          reference: u.code,
+          lines: [
+            { accountCode: '1000', debit: diff },
+            { accountCode: `UNIT-${id}`, credit: diff },
+          ],
+          metadata: { unitId: id, amount: diff },
+        });
+      } else {
+        Ledger.post({
+          description: `Capital decrease · ${u.name}`,
+          type: 'CAPITAL_INJECTION',
+          reference: u.code,
+          lines: [
+            { accountCode: `UNIT-${id}`, debit: Math.abs(diff) },
+            { accountCode: '1000', credit: Math.abs(diff) },
+          ],
+          metadata: { unitId: id, amount: diff },
+        });
+      }
+    }
+
+    Object.assign(u, patch, { updatedAt: new Date().toISOString() });
+    audit('unit.update', 'BusinessUnit', id, before, patch);
+    return u;
+  },
+
+  remove(id){
+    const u = state.units.find(x => x.id === id);
+    if (!u) throw new Error('Unit not found');
+    const balance = Ledger.balance(`UNIT-${id}`);
+    if (Math.abs(balance) > 0.01)
+      throw new Error(`Cannot delete: unit holds ${money(balance)} in capital.`);
+    u.deletedAt = new Date().toISOString();
+    u.status = 'CLOSED';
+    audit('unit.delete', 'BusinessUnit', id, { name: u.name }, null);
+  },
+
+  forceRemove(id){
+    const u = state.units.find(x => x.id === id);
+    if (!u) throw new Error('Unit not found');
+    const cap = Ledger.balance(`UNIT-${id}`);
+    if (Math.abs(cap) > 0.01) {
+      Ledger.post({
+        description: `Unit capital return · ${u.name}`,
+        type: 'ADJUSTMENT',
+        reference: u.code,
+        lines: [
+          { accountCode: `UNIT-${id}`, debit: cap },
+          { accountCode: '1000', credit: cap },
+        ],
+        metadata: { unitId: id, amount: cap, reason: 'capital_return' },
+      });
+    }
+    u.deletedAt = new Date().toISOString();
+    u.status = 'CLOSED';
+    audit('unit.force_delete', 'BusinessUnit', id, { name: u.name, capital: cap }, null);
+  },
+
+  writeOff(id){
+    const u = state.units.find(x => x.id === id);
+    if (!u) throw new Error('Unit not found');
+    const cap = Ledger.balance(`UNIT-${id}`);
+    if (cap > 0.01) {
+      Ledger.post({
+        description: `Unit capital write-off · ${u.name}`,
+        type: 'ADJUSTMENT',
+        reference: u.code,
+        lines: [
+          { accountCode: `UNIT-${id}`, debit: cap },
+          { accountCode: '3100', credit: cap },
+        ],
+        metadata: { unitId: id, amount: cap, reason: 'write_off' },
+      });
+    }
+    u.deletedAt = new Date().toISOString();
+    u.status = 'CLOSED';
+    audit('unit.write_off', 'BusinessUnit', id, { name: u.name, amount: cap }, null);
+  },
+};
+
+/* ============================================================
+   SAVINGS SERVICE
+   ============================================================ */
+const SavingsService = {
+  deposit(memberId, amount, note){
+    amount = round(num(amount));
+    if (amount <= 0) throw new Error('Amount must be greater than zero');
+    const m = state.members.find(x => x.id === memberId);
+    if (!m) throw new Error('Member not found');
+    if (m.status !== 'ACTIVE') throw new Error('Member is not active');
+
+    const entry = Ledger.post({
+      description: `Savings deposit · ${m.name}`,
+      type: 'SAVINGS_DEPOSIT',
+      lines: [
+        { accountCode: '1000', debit: amount },
+        { accountCode: `SAV-${memberId}`, credit: amount, memo: note },
+      ],
+      metadata: { memberId, amount, note },
+    });
+    audit('savings.deposit', 'JournalEntry', entry.id, null, { memberId, amount });
+    return entry;
+  },
+
+  withdraw(memberId, amount){
+    amount = round(num(amount));
+    if (amount <= 0) throw new Error('Amount must be greater than zero');
+    const bal = Ledger.balance(`SAV-${memberId}`);
+    if (bal < amount) throw new Error(`Insufficient balance (available: ${money(bal)})`);
+
+    const entry = Ledger.post({
+      description: `Savings withdrawal · ${mName(memberId)}`,
+      type: 'SAVINGS_WITHDRAWAL',
+      lines: [
+        { accountCode: `SAV-${memberId}`, debit: amount },
+        { accountCode: '1000', credit: amount },
+      ],
+      metadata: { memberId, amount },
+    });
+    audit('savings.withdraw', 'JournalEntry', entry.id, null, { memberId, amount });
+    return entry;
+  },
+
+  reverse(entryId, reason){
+    Ledger.reverse(entryId, reason);
+    audit('entry.reverse', 'JournalEntry', entryId, null, { reason });
+  },
+};
+
+/* ============================================================
+   LOAN SERVICE
+   ============================================================ */
+const LoanService = {
+  list(){ return state.loans.filter(l => !l.deletedAt); },
+
+  request(memberId, principal, ratePct, termMonths, purpose){
+    principal = round(num(principal));
+    ratePct = num(ratePct) || CONFIG.rules.defaultInterestRate;
+    termMonths = Math.max(1, parseInt(termMonths) || CONFIG.rules.defaultTermMonths);
+    if (principal <= 0) throw new Error('Principal must be greater than zero');
+
+    const m = state.members.find(x => x.id === memberId);
+    if (!m) throw new Error('Member not found');
+
+    const savings = Ledger.balance(`SAV-${memberId}`);
+    if (savings < CONFIG.rules.minSavingsForLoan)
+      throw new Error(`Minimum savings required: ${money(CONFIG.rules.minSavingsForLoan)}`);
+
+    const maxLoan = savings * CONFIG.rules.maxLoanMultiplier;
+    if (principal > maxLoan) throw new Error(`Max loan for this member: ${money(maxLoan)}`);
+
+    const interest = round(principal * ratePct / 100);
+    const totalDue = round(principal + interest);
+
+    const loan = {
+      id: uid('ln_'),
+      loanNumber: 'LN-' + String(state.loans.length + 1).padStart(4, '0'),
+      membershipId: memberId,
+      principal, interestRate: ratePct, termMonths,
+      totalInterest: interest, totalDue,
+      monthlyPayment: round(totalDue / termMonths),
+      outstandingPrincipal: 0, outstandingInterest: 0,
+      status: 'REQUESTED', purpose: purpose || '',
+      requestedAt: new Date().toISOString(),
+      repayments: [],
+    };
+    state.loans.push(loan);
+    audit('loan.request', 'Loan', loan.id, null, { memberId, principal });
+    return loan;
+  },
+
+  approve(id){
+    const ln = state.loans.find(l => l.id === id);
+    if (!ln || ln.status !== 'REQUESTED') throw new Error('Loan not in REQUESTED state');
+    ln.status = 'APPROVED'; ln.approvedAt = new Date().toISOString();
+    audit('loan.approve', 'Loan', id, null, {});
+  },
+
+  reject(id, reason){
+    const ln = state.loans.find(l => l.id === id);
+    if (!ln || ln.status !== 'REQUESTED') throw new Error('Loan not in REQUESTED state');
+    ln.status = 'REJECTED'; ln.rejectedReason = reason || '';
+    audit('loan.reject', 'Loan', id, null, { reason });
+  },
+
+  disburse(id){
+    const ln = state.loans.find(l => l.id === id);
+    if (!ln || ln.status !== 'APPROVED') throw new Error('Loan must be APPROVED');
+    if (Ledger.balance('1000') < ln.principal) throw new Error('Insufficient cash to disburse');
+
+    Ledger.post({
+      description: `Loan disbursement · ${mName(ln.membershipId)}`,
+      type: 'LOAN_DISBURSEMENT',
+      reference: ln.loanNumber,
+      lines: [
+        { accountCode: `LOAN-${ln.membershipId}`, debit: ln.principal },
+        { accountCode: '1000', credit: ln.principal },
+      ],
+      metadata: { loanId: id, memberId: ln.membershipId, amount: ln.principal },
+    });
+
+    ln.status = 'DISBURSED';
+    ln.disbursedAt = new Date().toISOString();
+    ln.outstandingPrincipal = ln.principal;
+    ln.outstandingInterest = ln.totalInterest;
+    audit('loan.disburse', 'Loan', id, null, { amount: ln.principal });
+  },
+
+  repay(id, amount){
+    amount = round(num(amount));
+    if (amount <= 0) throw new Error('Repayment must be greater than zero');
+    const ln = state.loans.find(l => l.id === id);
+    if (!ln || ln.status !== 'DISBURSED') throw new Error('Loan not DISBURSED');
+
+    let rem = amount;
+    const intPart = Math.min(rem, ln.outstandingInterest);
+    ln.outstandingInterest = round(ln.outstandingInterest - intPart);
+    rem = round(rem - intPart);
+    const prinPart = Math.min(rem, ln.outstandingPrincipal);
+    ln.outstandingPrincipal = round(ln.outstandingPrincipal - prinPart);
+    rem = round(rem - prinPart);
+    const overpay = rem;
+
+    const lines = [{ accountCode: '1000', debit: amount }];
+    if (prinPart > 0) lines.push({ accountCode: `LOAN-${ln.membershipId}`, credit: prinPart });
+    if (intPart  > 0) lines.push({ accountCode: '4000', credit: intPart });
+    if (overpay  > 0) lines.push({ accountCode: `SAV-${ln.membershipId}`, credit: overpay });
+
+    Ledger.post({
+      description: `Loan repayment · ${mName(ln.membershipId)}`,
+      type: 'LOAN_REPAYMENT',
+      reference: ln.loanNumber,
+      lines,
+      metadata: { loanId: id, memberId: ln.membershipId, amount, prinPart, intPart, overpay },
+    });
+
+    ln.repayments.push({ id: uid('rp_'), date: new Date().toISOString(), amount, prinPart, intPart, overpay });
+    if (ln.outstandingPrincipal <= 0.001 && ln.outstandingInterest <= 0.001)
+      ln.status = 'REPAID';
+    audit('loan.repay', 'Loan', id, null, { amount });
+  },
+
+  writeOff(id){
+    const ln = state.loans.find(l => l.id === id);
+    if (!ln || ln.status !== 'DISBURSED') throw new Error('Only DISBURSED loans can be written off');
+    const totalOut = round(ln.outstandingPrincipal + ln.outstandingInterest);
+    if (totalOut < 0.01) throw new Error('Nothing to write off');
+
+    Ledger.post({
+      description: `Loan write-off · ${mName(ln.membershipId)}`,
+      type: 'ADJUSTMENT',
+      reference: ln.loanNumber,
+      lines: [
+        { accountCode: '3100', debit: totalOut },
+        { accountCode: `LOAN-${ln.membershipId}`, credit: totalOut },
+      ],
+      metadata: { loanId: id, memberId: ln.membershipId, amount: totalOut, reason: 'bad_debt' },
+    });
+
+    ln.outstandingPrincipal = 0;
+    ln.outstandingInterest = 0;
+    ln.status = 'DEFAULTED';
+    ln.writtenOffAt = new Date().toISOString();
+    audit('loan.write_off', 'Loan', id, null, { amount: totalOut });
+  },
+};
+
+/* ============================================================
+   CAMPAIGN SERVICE
+   ============================================================ */
+const CampaignService = {
+  list(){ return state.campaigns.filter(c => !c.deletedAt); },
+
+  create({ name, target, description }){
+    name = (name || '').trim();
+    if (!name) throw new Error('Campaign name required');
+    const c = {
+      id: uid('c_'), name,
+      description: (description || '').trim(),
+      targetAmount: round(num(target)),
+      raisedAmount: 0, status: 'ACTIVE',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    state.campaigns.push(c);
+    ensureCampaignAccount(c.id, c.name);
+    audit('campaign.create', 'Campaign', c.id, null, { name });
+    return c;
+  },
+
+  update(id, patch){
+    const c = state.campaigns.find(x => x.id === id);
+    if (!c) throw new Error('Campaign not found');
+    const before = { ...c };
+    Object.assign(c, patch, { updatedAt: new Date().toISOString() });
+    audit('campaign.update', 'Campaign', id, before, patch);
+  },
+
+  remove(id){
+    const c = state.campaigns.find(x => x.id === id);
+    if (!c) throw new Error('Campaign not found');
+    const raised = Ledger.balance(`CAMP-${id}`);
+    if (raised > 0.01)
+      throw new Error(`Cannot delete: campaign holds ${money(raised)}.`);
+    c.deletedAt = new Date().toISOString();
+    c.status = 'CANCELLED';
+    audit('campaign.delete', 'Campaign', id, { name: c.name }, null);
+  },
+
+  contribute(memberId, campaignId, amount){
+    amount = round(num(amount));
+    if (amount <= 0) throw new Error('Amount must be greater than zero');
+    const c = state.campaigns.find(x => x.id === campaignId);
+    if (!c || c.deletedAt) throw new Error('Campaign not found');
+    if (c.status !== 'ACTIVE') throw new Error('Campaign is not active');
+
+    Ledger.post({
+      description: `Support · ${mName(memberId)} → ${c.name}`,
+      type: 'SUPPORT_CONTRIBUTION',
+      reference: campaignId,
+      lines: [
+        { accountCode: '1000', debit: amount },
+        { accountCode: `CAMP-${campaignId}`, credit: amount },
+      ],
+      metadata: { memberId, campaignId, amount },
+    });
+    c.raisedAmount = round(num(c.raisedAmount) + amount);
+    audit('campaign.contribute', 'Campaign', campaignId, null, { memberId, amount });
+  },
+
+  contributors(campaignId){
+    const contribs = {};
+    for (const e of state.journalEntries) {
+      if (e.type === 'SUPPORT_CONTRIBUTION' && e.metadata?.campaignId === campaignId) {
+        contribs[e.metadata.memberId] = round((contribs[e.metadata.memberId] || 0) + num(e.metadata.amount));
+      }
+    }
+    return contribs;
+  },
+};
+
+/* ============================================================
+   SHARE SERVICE
+   ============================================================ */
+const ShareService = {
+  buy(memberId, quantity, price){
+    quantity = parseInt(quantity);
+    price = round(num(price)) || state.org.sharePrice;
+    if (!quantity || quantity <= 0) throw new Error('Quantity must be greater than zero');
+    const total = round(quantity * price);
+    const sav = Ledger.balance(`SAV-${memberId}`);
+    if (sav < total) throw new Error(`Insufficient savings (have ${money(sav)}, need ${money(total)})`);
+
+    Ledger.post({
+      description: `Share purchase · ${mName(memberId)} × ${quantity}`,
+      type: 'SHARE_PURCHASE',
+      lines: [
+        { accountCode: `SAV-${memberId}`, debit: total },
+        { accountCode: `SHR-${memberId}`, credit: total },
+      ],
+      metadata: { memberId, quantity, price, amount: total },
+    });
+
+    const sh = state.shareholdings.find(s => s.membershipId === memberId);
+    if (sh) { sh.sharesOwned += quantity; sh.totalInvested = round(num(sh.totalInvested) + total); }
+    audit('share.buy', 'Shareholding', memberId, null, { quantity, total });
+  },
+
+  sell(memberId, quantity, price){
+    quantity = parseInt(quantity);
+    price = round(num(price)) || state.org.sharePrice;
+    if (!quantity || quantity <= 0) throw new Error('Quantity must be greater than zero');
+    const sh = state.shareholdings.find(s => s.membershipId === memberId);
+    if (!sh || sh.sharesOwned < quantity) throw new Error('Insufficient shares to sell');
+    const total = round(quantity * price);
+
+    Ledger.post({
+      description: `Share sale · ${mName(memberId)} × ${quantity}`,
+      type: 'SHARE_SALE',
+      lines: [
+        { accountCode: `SHR-${memberId}`, debit: total },
+        { accountCode: '1000', credit: total },
+      ],
+      metadata: { memberId, quantity, price, amount: total },
+    });
+    sh.sharesOwned -= quantity;
+    sh.totalInvested = round(num(sh.totalInvested) - total);
+    audit('share.sell', 'Shareholding', memberId, null, { quantity, total });
+  },
+};
+
+/* ============================================================
+   SEED — EMPTY (clean start)
+   ============================================================ */
+function seed(){
+  state = {
+    schemaVersion: CONFIG.schemaVersion,
+    org: { ...CONFIG.org, name: CONFIG.brand.name },
+    members: [], units: [], accounts: [],
+    journalEntries: [], journalLines: [],
+    loans: [], campaigns: [],
+    shareholdings: [], notifications: [], auditLogs: [],
+    createdAt: new Date().toISOString(),
+    isNew: true,
+  };
+  ensureSystemAccounts();
+
+  state.notifications.push({
+    id: uid('n_'),
+    title: 'Welcome to ZIYARAH',
+    message: 'Your platform is ready. Start by adding members and business units from the dashboard.',
+    type: 'SUCCESS', read: false,
+    createdAt: new Date().toISOString(),
+  });
+
+  DB.save();
+}
+
+/* ============================================================
+   SEED DEMO — full sample data (loadable from Settings)
+   ============================================================ */
+function seedDemo(){
+  state = {
+    schemaVersion: CONFIG.schemaVersion,
+    org: { ...CONFIG.org, name: CONFIG.brand.name },
+    members: [], units: [], accounts: [],
+    journalEntries: [], journalLines: [],
+    loans: [], campaigns: [],
+    shareholdings: [], notifications: [], auditLogs: [],
+    createdAt: new Date().toISOString(),
+    isNew: false,
+  };
+  ensureSystemAccounts();
+
+  const admin = MemberService.create({ name: 'Ahmed Ziyarah', phone: '+251911100001', email: 'ahmed@ziyarah.et', role: 'ADMIN' });
+  currentUser = admin;
+  const treas = MemberService.create({ name: 'Fatima Hassan', phone: '+251911100002', email: 'fatima@ziyarah.et', role: 'TREASURER' });
+  const off   = MemberService.create({ name: 'Yusuf Ibrahim', phone: '+251911100003', email: 'yusuf@ziyarah.et', role: 'LOAN_OFFICER' });
+  const m1    = MemberService.create({ name: 'Amina Mohammed', phone: '+251911100004', email: 'amina@ziyarah.et', role: 'MEMBER' });
+  const m2    = MemberService.create({ name: 'Omar Abdullah', phone: '+251911100005', email: 'omar@ziyarah.et', role: 'MEMBER' });
+
+  UnitService.create({ name: 'Retail Shop', description: 'Consumer goods retail outlet', managerId: admin.id, capital: 50000, status: 'ACTIVE', category: 'Retail' });
+  UnitService.create({ name: 'Farming Cooperative', description: 'Shared agriculture production', managerId: treas.id, capital: 80000, status: 'ACTIVE', category: 'Agriculture' });
+  UnitService.create({ name: 'Transport Service', description: 'Shared vehicle fleet', managerId: off.id, capital: 60000, status: 'PLANNING', category: 'Logistics' });
+
+  Ledger.post({
+    description: 'Founder capital injection',
+    type: 'CAPITAL_INJECTION',
+    lines: [
+      { accountCode: '1000', debit: 100000 },
+      { accountCode: '3100', credit: 100000 },
+    ],
+    metadata: { amount: 100000, note: 'Founder capital' },
+  });
+
+  SavingsService.deposit(admin.id, 50000, 'Initial deposit');
+  SavingsService.deposit(treas.id, 40000, 'Initial deposit');
+  SavingsService.deposit(off.id, 30000, 'Initial deposit');
+  SavingsService.deposit(m1.id, 25000, 'Initial deposit');
+  SavingsService.deposit(m2.id, 20000, 'Initial deposit');
+
+  const cA = CampaignService.create({ name: 'Education Support Fund', target: 100000, description: 'School fees for members\' children' });
+  const cB = CampaignService.create({ name: 'Medical Emergency Fund', target: 150000, description: 'Emergency medical support' });
+  CampaignService.contribute(admin.id, cA.id, 3000);
+  CampaignService.contribute(treas.id, cB.id, 2500);
+  CampaignService.contribute(m1.id, cA.id, 1500);
+
+  ShareService.buy(admin.id, 200, 100);
+  ShareService.buy(treas.id, 150, 100);
+  ShareService.buy(off.id, 100, 100);
+  ShareService.buy(m1.id, 80, 100);
+  ShareService.buy(m2.id, 60, 100);
+
+  const loan = LoanService.request(m1.id, 20000, 10, 6, 'Business expansion');
+  LoanService.approve(loan.id);
+  LoanService.disburse(loan.id);
+  LoanService.repay(loan.id, 3500);
+
+  state.notifications.push({
+    id: uid('n_'), title: 'Demo data loaded',
+    message: 'Sample members, units, campaigns and loans added.',
+    type: 'SUCCESS', read: false,
+    createdAt: new Date().toISOString(),
+  });
+
+  DB.save();
+}
+
+/* ============================================================
+   UI PRIMITIVES
+   ============================================================ */
+function toast(msg, type = 'ok'){
+  const wrap = document.getElementById('toast');
+  const el = document.createElement('div');
+  el.className = 'toast-item toast-' + (type === 'err' ? 'err' : type === 'info' ? 'info' : 'ok');
+  el.textContent = msg;
+  wrap.appendChild(el);
+  setTimeout(() => el.remove(), 3600);
+}
+
+function openModal(html){
+  document.getElementById('modalContent').innerHTML =
+    `<button class="modal-close" onclick="closeModal()">×</button>` + html;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){ document.getElementById('modal').classList.remove('show'); }
+
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarBg').classList.toggle('show');
+}
+
+function guard(fn){
+  return function(...args){
+    try {
+      const r = fn.apply(this, args);
+      if (r && typeof r.then === 'function') r.catch(e => { console.error(e); toast(e.message, 'err'); });
+      return r;
+    } catch (e){ console.error(e); toast(e.message, 'err'); }
+  };
+}
+
+function go(route){
+  window.location.hash = '#' + route;
+  if (window.innerWidth < 1024){
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarBg').classList.remove('show');
+  }
+}
+
+function parseRoute(){
+  const h = (window.location.hash || '#dashboard').replace('#','');
+  return { route: h.split('/')[0] || 'dashboard' };
+}
+
+function updateStats(){
+  const r = document.getElementById('sideRecords');
+  const fr = document.getElementById('footerRecords');
+  const fs = document.getElementById('footerSize');
+  const c = DB.count();
+  if (r) r.textContent = c;
+  if (fr) fr.textContent = c;
+  if (fs) fs.textContent = DB.sizeKB() + ' KB';
+}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+function kpi(label, value, sub, color){
+  return `<div class="card p-4">
+    <div class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">${esc(label)}</div>
+    <div class="kpi-value mt-1 ${color || 'text-[#0b3d36]'}">${value}</div>
+    ${sub ? `<div class="text-xs text-slate-400 mt-0.5">${esc(sub)}</div>` : ''}
+  </div>`;
+}
+
+function pill(status){
+  const map = {
+    ACTIVE:'bg-emerald-100 text-emerald-800', SUSPENDED:'bg-amber-100 text-amber-800',
+    EXITED:'bg-slate-100 text-slate-600', PLANNING:'bg-sky-100 text-sky-800',
+    PAUSED:'bg-amber-100 text-amber-800', CLOSED:'bg-slate-100 text-slate-600',
+    REQUESTED:'bg-amber-100 text-amber-800', APPROVED:'bg-sky-100 text-sky-800',
+    DISBURSED:'bg-indigo-100 text-indigo-800', REPAID:'bg-emerald-100 text-emerald-800',
+    REJECTED:'bg-rose-100 text-rose-800', CANCELLED:'bg-slate-100 text-slate-600',
+    DEFAULTED:'bg-rose-100 text-rose-800',
+  };
+  return `<span class="pill ${map[status] || 'bg-slate-100 text-slate-700'}">${esc(status)}</span>`;
+}
+
+function avatar(name, size = 'w-9 h-9'){
+  const pal = ['#0f5248','#146b5d','#1a8874','#c9a227','#b08e1e','#0b3d36'];
+  const c = pal[String(name||'X').charCodeAt(0) % pal.length];
+  return `<div class="${size} rounded-full grid place-items-center text-white font-bold text-xs shrink-0" style="background:${c}">${esc(initials(name))}</div>`;
+}
+
+function header(title, subtitle, actions){
+  return `<div class="mb-5 flex flex-wrap items-end justify-between gap-3">
+    <div>
+      <h1 class="text-2xl font-extrabold text-[#062a26] gold-underline inline-block">${esc(title)}</h1>
+      <p class="text-sm text-slate-500 mt-3">${esc(subtitle)}</p>
+    </div>
+    ${actions ? `<div class="flex gap-2 flex-wrap">${actions}</div>` : ''}
+  </div>`;
+}
+
+function memberOpts(selected){
+  return MemberService.list().filter(m => m.status === 'ACTIVE')
+    .map(m => `<option value="${m.id}" ${selected===m.id?'selected':''}>${esc(m.name)}</option>`)
+    .join('') || '<option value="">No active members</option>';
+}
+
+function emptyState(icon, title, message, actionLabel, actionFn){
+  return `<div class="empty py-12">
+    <div class="text-4xl mb-3">${icon}</div>
+    <div class="text-base font-bold text-slate-700 mb-1">${esc(title)}</div>
+    <div class="text-sm text-slate-400 mb-4 max-w-md mx-auto">${esc(message)}</div>
+    ${actionLabel ? `<button class="btn btn-p" onclick="${actionFn}">${esc(actionLabel)}</button>` : ''}
+  </div>`;
+}
+
+/* ============================================================
+   VIEWS
+   ============================================================ */
+const views = {};
+
+/* ----- DASHBOARD — clean / onboarding ----- */
+views.dashboard = () => {
+  const memberCount = MemberService.list().length;
+  const unitCount = UnitService.list().length;
+  const campaignCount = CampaignService.list().length;
+  const loanCount = LoanService.list().length;
+  const entryCount = state.journalEntries.length;
+  const cash = Ledger.balance('1000');
+  const isEmpty = memberCount === 0 && unitCount === 0 && entryCount === 0;
+
+  // ---- Empty / onboarding view ----
+  if (isEmpty) {
+    return `
+    ${header('Dashboard', 'Welcome to your cooperative platform. Let\'s get you started.')}
+
+    <div class="card p-6 mb-5" style="background:linear-gradient(135deg,#062a26 0%,#0f5248 60%,#146b5d 100%);border:none;">
+      <div class="flex items-start gap-4 flex-wrap">
+        <div class="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 grid place-items-center text-2xl shrink-0">◈</div>
+        <div class="flex-1 min-w-0">
+          <h2 class="text-white font-extrabold text-xl">Your platform is ready</h2>
+          <p class="text-white/70 text-sm mt-1">No data yet — that's perfect. Follow the steps below to add your first members and business units. Everything you enter will post to a balanced double-entry ledger.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-4 mb-5">
+      <div class="lg:col-span-2">
+        <div class="card p-5">
+          <h2 class="font-bold text-slate-800 mb-1">Getting started</h2>
+          <p class="text-xs text-slate-500 mb-4">Complete these steps to launch the platform.</p>
+
+          <div class="space-y-2">
+            <button class="onboard-card" onclick="openMemberForm()">
+              <div class="flex items-center gap-3">
+                <div class="onboard-icon bg-[#e8f2f0] text-[#0f5248]">1</div>
+                <div class="flex-1">
+                  <div class="font-semibold text-slate-800">Add your first member</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Members can save, borrow, contribute and buy shares.</div>
+                </div>
+                <div class="text-[#0f5248] text-xl">→</div>
+              </div>
+            </button>
+
+            <button class="onboard-card" onclick="openUnitForm()">
+              <div class="flex items-center gap-3">
+                <div class="onboard-icon bg-[#fdf6e3] text-[#c9a227]">2</div>
+                <div class="flex-1">
+                  <div class="font-semibold text-slate-800">Register a business unit</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Operating businesses with capital, managers and categories.</div>
+                </div>
+                <div class="text-[#0f5248] text-xl">→</div>
+              </div>
+            </button>
+
+            <button class="onboard-card" onclick="openCapitalForm()">
+              <div class="flex items-center gap-3">
+                <div class="onboard-icon bg-[#e8f2f0] text-[#0f5248]">3</div>
+                <div class="flex-1">
+                  <div class="font-semibold text-slate-800">Add opening capital</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Fund the group with cash so you can disburse loans and allocate capital.</div>
+                </div>
+                <div class="text-[#0f5248] text-xl">→</div>
+              </div>
+            </button>
+
+            <button class="onboard-card" onclick="openCampaignForm()">
+              <div class="flex items-center gap-3">
+                <div class="onboard-icon bg-[#fdf6e3] text-[#c9a227]">4</div>
+                <div class="flex-1">
+                  <div class="font-semibold text-slate-800">Create a support campaign</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Optional — run community funds for education, health, or businesses.</div>
+                </div>
+                <div class="text-[#0f5248] text-xl">→</div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="card p-5">
+          <h2 class="font-bold text-slate-800 mb-3">Quick start</h2>
+          <div class="space-y-2">
+            <button class="btn btn-p w-full" onclick="openMemberForm()">+ Add first member</button>
+            <button class="btn btn-gold w-full" onclick="openUnitForm()">+ Register a unit</button>
+            <button class="btn btn-g w-full" onclick="openCapitalForm()">+ Add opening capital</button>
+          </div>
+          <div class="divider"></div>
+          <p class="text-xs text-slate-500 mb-3">Want to see how it looks with data?</p>
+          <button class="btn btn-s w-full" onclick="loadDemoConfirm()">▶ Load demo data</button>
+        </div>
+
+        <div class="card p-5">
+          <h2 class="font-bold text-slate-800 mb-3">Platform status</h2>
+          <div class="space-y-2 text-sm">
+            <div class="flex justify-between"><span class="text-slate-500">Members</span><span class="font-bold">0</span></div>
+            <div class="flex justify-between"><span class="text-slate-500">Business units</span><span class="font-bold">0</span></div>
+            <div class="flex justify-between"><span class="text-slate-500">Campaigns</span><span class="font-bold">0</span></div>
+            <div class="flex justify-between"><span class="text-slate-500">Ledger</span><span class="font-bold ${Ledger.verify().balanced ? 'text-emerald-700' : 'text-rose-700'}">${Ledger.verify().balanced ? '✓ Balanced' : '⚠ Broken'}</span></div>
+            <div class="flex justify-between"><span class="text-slate-500">Currency</span><span class="font-bold">${esc(state.org.currency)}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-4 text-xs text-slate-500 flex items-center gap-3">
+      <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+      <span>Everything you enter is stored locally in your browser. Export a backup anytime from Settings.</span>
+    </div>`;
+  }
+
+  // ---- Populated dashboard ----
+  const loans = Ledger.totalByPrefix('LOAN-');
+  const savings = Ledger.totalByPrefix('SAV-');
+  const support = Ledger.totalByPrefix('CAMP-');
+  const shares = Ledger.totalByPrefix('SHR-');
+  const equity = Ledger.balance('3100');
+  const units = Ledger.totalByPrefix('UNIT-');
+  const interest = Ledger.balance('4000');
+
+  const activeLoans = LoanService.list().filter(l => l.status === 'DISBURSED').length;
+  const activeMembers = MemberService.list().filter(m => m.status === 'ACTIVE').length;
+  const activeUnits = UnitService.list().filter(u => u.status === 'ACTIVE').length;
+
+  const recent = state.journalEntries.slice(-8).reverse();
+  const recentRows = recent.length ? recent.map(e => {
+    const amt = state.journalLines.filter(l => l.journalEntryId === e.id).reduce((s, l) => s + num(l.debit), 0);
+    return `<tr>
+      <td class="text-slate-400 text-xs whitespace-nowrap">${dtShort(e.date)}</td>
+      <td class="text-sm">${esc(e.description)}</td>
+      <td class="text-right mono text-sm font-semibold">${money(amt)}</td>
+    </tr>`;
+  }).join('') : `<tr><td colspan="3" class="empty">No transactions yet</td></tr>`;
+
+  return `
+  ${header('Dashboard', 'Overview of people, businesses, and money across the group.')}
+
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    ${kpi('Cash & Bank', money(cash), 'Liquid funds')}
+    ${kpi('Member Savings', money(savings), `${memberCount} members`)}
+    ${kpi('Loans Outstanding', money(loans), `${activeLoans} active`)}
+    ${kpi('Business Capital', money(units), `${activeUnits} active units`, 'text-[#c9a227]')}
+  </div>
+
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+    ${kpi('Support Funds', money(support), `${campaignCount} campaigns`)}
+    ${kpi('Share Capital', money(shares), 'Member equity', 'text-[#c9a227]')}
+    ${kpi('Group Equity', money(equity), 'Founder capital')}
+    ${kpi('Interest Income', money(interest), 'Earned', 'text-emerald-700')}
+  </div>
+
+  <div class="grid lg:grid-cols-3 gap-4 mt-4">
+    <div class="card p-5 lg:col-span-2">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-bold text-slate-800">Recent transactions</h2>
+        <button class="btn btn-s btn-xs" onclick="go('ledger')">View ledger →</button>
+      </div>
+      <table>
+        <thead><tr><th>Date</th><th>Description</th><th class="text-right">Amount</th></tr></thead>
+        <tbody>${recentRows}</tbody>
+      </table>
+    </div>
+
+    <div class="space-y-4">
+      <div class="card p-5">
+        <h2 class="font-bold text-slate-800 mb-3">Snapshot</h2>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-slate-500">Members</span><span class="font-bold">${memberCount} <span class="text-xs text-emerald-600">(${activeMembers} active)</span></span></div>
+          <div class="flex justify-between"><span class="text-slate-500">Business Units</span><span class="font-bold">${unitCount}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">Campaigns</span><span class="font-bold">${campaignCount}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">Loans</span><span class="font-bold">${loanCount}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">Journal entries</span><span class="font-bold">${entryCount}</span></div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h2 class="font-bold text-slate-800 mb-3">Quick actions</h2>
+        <div class="grid grid-cols-2 gap-2">
+          <button class="btn btn-p btn-xs" onclick="openMemberForm()">+ Member</button>
+          <button class="btn btn-gold btn-xs" onclick="openUnitForm()">+ Unit</button>
+          <button class="btn btn-g btn-xs" onclick="openSavingsForm('deposit')">+ Deposit</button>
+          <button class="btn btn-s btn-xs" onclick="openLoanForm()">+ Loan</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+};
+
+/* ----- MEMBERS ----- */
+views.members = () => {
+  const q = (window._memberSearch || '').toLowerCase();
+  const all = MemberService.list();
+  const list = all.filter(m =>
+    !q || m.name.toLowerCase().includes(q) || (m.phone || '').includes(q) || m.memberNumber.includes(q)
+  );
+
+  const rows = list.length ? list.map(m => {
+    const sav = Ledger.balance(`SAV-${m.id}`);
+    const loan = Ledger.balance(`LOAN-${m.id}`);
+    const shr = Ledger.balance(`SHR-${m.id}`);
+    return `<tr>
+      <td>
+        <div class="flex items-center gap-3">
+          ${avatar(m.name, 'w-9 h-9')}
+          <div>
+            <div class="font-semibold text-slate-800">${esc(m.name)}</div>
+            <div class="text-[11px] text-slate-400">${esc(m.memberNumber)} · ${CONFIG.roles[m.role] || m.role}</div>
+          </div>
+        </div>
+      </td>
+      <td class="text-slate-500 text-sm">${esc(m.phone || '—')}</td>
+      <td class="text-sm text-slate-500">${esc(m.email || '—')}</td>
+      <td class="text-right mono ${sav < 0 ? 'text-rose-700' : ''}">${money(sav)}</td>
+      <td class="text-right mono text-[#c9a227]">${money(shr)}</td>
+      <td class="text-right mono ${loan > 0 ? 'text-rose-700 font-semibold' : 'text-slate-400'}">${money(loan)}</td>
+      <td>${pill(m.status)}</td>
+      <td class="text-right">
+        <div class="action-btns">
+          <button class="btn btn-s btn-xs" onclick="openMemberForm('${m.id}')">Edit</button>
+          <button class="btn btn-r btn-xs" onclick="handleDeleteMember('${m.id}')">Delete</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('') : '';
+
+  const body = rows || `<tr><td colspan="8">${emptyState('◉', 'No members yet', 'Add your first member to start accepting savings, issuing loans, and managing contributions.',
+    'Add first member', 'openMemberForm()')}</td></tr>`;
+
+  return `
+  ${header('Members', 'Create, view, edit, and remove members.',
+    `<button class="btn btn-p" onclick="openMemberForm()">+ New member</button>`)}
+
+  ${all.length > 0 ? `
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+    ${kpi('Total Members', all.length)}
+    ${kpi('Active', all.filter(m => m.status === 'ACTIVE').length, '', 'text-emerald-700')}
+    ${kpi('Suspended', all.filter(m => m.status === 'SUSPENDED').length, '', 'text-amber-700')}
+    ${kpi('Total Savings', money(Ledger.totalByPrefix('SAV-')))}
+  </div>` : ''}
+
+  <div class="card p-5">
+    ${all.length > 0 ? `
+    <div class="flex items-center justify-between mb-4 gap-3 flex-wrap">
+      <h2 class="font-bold text-slate-800">Member register</h2>
+      <div class="search-box w-full sm:w-64">
+        <input class="inp" placeholder="Search name, phone, or ID…" value="${esc(window._memberSearch || '')}"
+          oninput="window._memberSearch = this.value; safeRender();">
+      </div>
+    </div>` : ''}
+    <div class="overflow-x-auto">
+      <table>
+        <thead><tr>
+          <th>Member</th><th>Phone</th><th>Email</th>
+          <th class="text-right">Savings</th><th class="text-right">Shares</th><th class="text-right">Loan</th>
+          <th>Status</th><th></th>
+        </tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>
+  </div>`;
+};
+
+function openMemberForm(id){
+  const m = id ? state.members.find(x => x.id === id) : null;
+  const isEdit = !!m;
+
+  openModal(`
+    <h2 class="text-lg font-bold text-slate-800 mb-1">${isEdit ? 'Edit member' : 'New member'}</h2>
+    <p class="text-xs text-slate-500 mb-4">${isEdit ? 'Update member details' : 'Add a new member to the group'}</p>
+    <form onsubmit="event.preventDefault(); submitMemberForm(this, ${isEdit ? `'${id}'` : 'null'});">
+      <label class="text-xs font-semibold text-slate-600">Full name *</label>
+      <input name="name" class="inp mb-3" value="${esc(m?.name || '')}" required>
+
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div>
+          <label class="text-xs font-semibold text-slate-600">Phone</label>
+          <input name="phone" class="inp" value="${esc(m?.phone || '')}" placeholder="+251911...">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-slate-600">Email</label>
+          <input name="email" type="email" class="inp" value="${esc(m?.email || '')}">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div>
+          <label class="text-xs font-semibold text-slate-600">Role</label>
+          <select name="role" class="inp">
+            ${Object.entries(CONFIG.roles).map(([k, v]) =>
+              `<option value="${k}" ${(m?.role || 'MEMBER') === k ? 'selected' : ''}>${v}</option>`
+            ).join('')}
+          </select>
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-slate-600">Status</label>
+          <select name="status" class="inp">
+            ${CONFIG.statuses.member.map(s =>
+              `<option value="${s}" ${(m?.status || 'ACTIVE') === s ? 'selected' : ''}>${s}</option>`
+            ).join('')}
+          </select>
+        </div>
+      </div>
+
+      <div class="flex gap-2 justify-end">
+        <button type="button" class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-p">${isEdit ? 'Save changes' : '+ Add member'}</button>
+      </div>
+    </form>
+  `);
+}
+
+function submitMemberForm(form, id){
+  guard(() => {
+    const data = {
+      name: form.name.value, phone: form.phone.value,
+      email: form.email.value, role: form.role.value, status: form.status.value,
+    };
+    if (id) {
+      MemberService.update(id, data);
+      toast('Member updated');
+    } else {
+      const m = MemberService.create(data);
+      toast('Member created: ' + m.name);
+    }
+    DB.save();
+    closeModal();
+    safeRender();
+  })();
+}
+
+function handleDeleteMember(id){
+  const m = state.members.find(x => x.id === id);
+  if (!m) return;
+  const sav = Ledger.balance(`SAV-${id}`);
+  const loan = Ledger.balance(`LOAN-${id}`);
+  const shr = Ledger.balance(`SHR-${id}`);
+  const hasBalances = Math.abs(sav) > 0.01 || Math.abs(loan) > 0.01 || Math.abs(shr) > 0.01;
+  const hasActiveLoan = state.loans.some(l => l.membershipId === id && l.status === 'DISBURSED');
+
+  openModal(`
+    <h2 class="text-lg font-bold text-rose-700 mb-1">Delete member</h2>
+    <p class="text-sm text-slate-600 mb-3">Remove <strong>${esc(m.name)}</strong>?</p>
+
+    ${hasActiveLoan
+      ? `<div class="bg-rose-50 border border-rose-200 rounded-lg p-3 mb-3 text-xs text-rose-800">
+          ⚠ Active loan. Repay or write it off first.
+        </div>` : ''}
+
+    ${hasBalances && !hasActiveLoan ? `
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3 text-xs text-amber-800">
+        <div class="font-semibold mb-2">Current balances:</div>
+        <div class="space-y-0.5 font-mono">
+          <div>Savings: ${money(sav)}</div>
+          <div>Loan:    ${money(loan)}</div>
+          <div>Shares:  ${money(shr)}</div>
+        </div>
+      </div>` : ''}
+
+    <p class="text-xs text-slate-500 mb-4">
+      <strong>Suspend</strong> keeps records and marks inactive.<br>
+      <strong>Force delete</strong> posts clearing entries, then removes the member.
+    </p>
+
+    <div class="flex flex-wrap gap-2 justify-end">
+      <button class="btn btn-s" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-p" onclick="handleSuspendMember('${id}')">Suspend</button>
+      ${!hasActiveLoan
+        ? `<button class="btn btn-r" onclick="confirmForceDeleteMember('${id}')">Force delete</button>` : ''}
+    </div>
+  `);
+}
+
+function handleSuspendMember(id){
+  guard(() => {
+    MemberService.update(id, { status: 'SUSPENDED' });
+    DB.save();
+    closeModal();
+    toast('Member suspended');
+    safeRender();
+  })();
+}
+
+function confirmForceDeleteMember(id){
+  openModal(`
+    <h2 class="text-lg font-bold text-rose-700 mb-1">Confirm force delete</h2>
+    <p class="text-sm text-slate-600 mb-3">
+      Posts clearing entries to zero out <strong>${esc(mName(id))}</strong>'s balances, then removes the member.
+    </p>
+    <p class="text-xs text-slate-500 mb-4">Reversing entries stay in the ledger and audit log.</p>
+    <div class="flex gap-2 justify-end">
+      <button class="btn btn-s" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-r" onclick="forceDeleteMember('${id}')">Yes, force delete</button>
+    </div>
+  `);
+}
+
+function forceDeleteMember(id){
+  guard(() => {
+    MemberService.forceRemove(id);
+    DB.save();
+    closeModal();
+    toast('Member deleted and balances cleared');
+    safeRender();
+  })();
+}
+
+/* ----- BUSINESS UNITS ----- */
+views.units = () => {
+  const q = (window._unitSearch || '').toLowerCase();
+  const all = UnitService.list();
+  const list = all.filter(u =>
+    !q || u.name.toLowerCase().includes(q) || u.code.includes(q) || (u.category || '').toLowerCase().includes(q)
+  );
+
+  const rows = list.length ? list.map(u => {
+    const capital = Ledger.balance(`UNIT-${u.id}`);
+    return `<tr>
+      <td>
+        <div class="font-semibold text-slate-800">${esc(u.name)}</div>
+        <div class="text-[11px] text-slate-400">${esc(u.code)} · ${esc(u.category || 'General')}</div>
+      </td>
+      <td class="text-sm text-slate-500 max-w-xs truncate">${esc(u.description || '—')}</td>
+      <td class="text-sm">${u.managerId ? esc(mName(u.managerId)) : '—'}</td>
+      <td class="text-right mono font-semibold text-[#c9a227]">${money(capital)}</td>
+      <td>${pill(u.status)}</td>
+      <td class="text-right">
+        <div class="action-btns">
+          <button class="btn btn-s btn-xs" onclick="openUnitForm('${u.id}')">Edit</button>
+          <button class="btn btn-r btn-xs" onclick="handleDeleteUnit('${u.id}')">Delete</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('') : '';
+
+  const body = rows || `<tr><td colspan="6">${emptyState('▣', 'No business units yet', 'Register the group\'s operating businesses — retail, farming, transport, or any other activity.',
+    'Register first unit', 'openUnitForm()')}</td></tr>`;
+
+  return `
+  ${header('Business Units', 'Manage operating businesses and their capital.',
+    `<button class="btn btn-p" onclick="openUnitForm()">+ New unit</button>`)}
+
+  ${all.length > 0 ? `
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+    ${kpi('Total Units', all.length)}
+    ${kpi('Active', all.filter(u => u.status === 'ACTIVE').length, '', 'text-emerald-700')}
+    ${kpi('Total Capital', money(Ledger.totalByPrefix('UNIT-')), '', 'text-[#c9a227]')}
+    ${kpi('Categories', new Set(all.map(u => u.category)).size)}
+  </div>` : ''}
+
+  <div class="card p-5">
+    ${all.length > 0 ? `
+    <div class="flex items-center justify-between mb-4 gap-3 flex-wrap">
+      <h2 class="font-bold text-slate-800">Operating businesses</h2>
+      <div class="search-box w-full sm:w-64">
+        <input class="inp" placeholder="Search units…" value="${esc(window._unitSearch || '')}"
+          oninput="window._unitSearch = this.value; safeRender();">
+      </div>
+    </div>` : ''}
+    <div class="overflow-x-auto">
+      <table>
+        <thead><tr>
+          <th>Unit</th><th>Description</th><th>Manager</th>
+          <th class="text-right">Capital</th><th>Status</th><th></th>
+        </tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>
+  </div>`;
+};
+
+function openUnitForm(id){
+  const u = id ? state.units.find(x => x.id === id) : null;
+  const isEdit = !!u;
+
+  openModal(`
+    <h2 class="text-lg font-bold text-slate-800 mb-1">${isEdit ? 'Edit business unit' : 'New business unit'}</h2>
+    <p class="text-xs text-slate-500 mb-4">${isEdit ? 'Capital changes post adjusting journal entries' : 'Register a new operating business'}</p>
+    <form onsubmit="event.preventDefault(); submitUnitForm(this, ${isEdit ? `'${id}'` : 'null'});">
+      <label class="text-xs font-semibold text-slate-600">Unit name *</label>
+      <input name="name" class="inp mb-3" value="${esc(u?.name || '')}" required>
+
+      <label class="text-xs font-semibold text-slate-600">Description</label>
+      <textarea name="description" class="inp mb-3" rows="2">${esc(u?.description || '')}</textarea>
+
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div>
+          <label class="text-xs font-semibold text-slate-600">Manager</label>
+          <select name="managerId" class="inp">
+            <option value="">— None —</option>
+            ${MemberService.list().map(m =>
+              `<option value="${m.id}" ${u?.managerId === m.id ? 'selected' : ''}>${esc(m.name)}</option>`
+            ).join('')}
+          </select>
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-slate-600">Category</label>
+          <input name="category" class="inp" value="${esc(u?.category || 'General')}">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div>
+          <label class="text-xs font-semibold text-slate-600">${isEdit ? 'Capital (adjusting entry)' : 'Initial capital'}</label>
+          <input name="initialCapital" type="number" step="0.01" min="0" class="inp" value="${u?.initialCapital || 0}">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-slate-600">Status</label>
+          <select name="status" class="inp">
+            ${CONFIG.statuses.unit.map(s =>
+              `<option value="${s}" ${(u?.status || 'PLANNING') === s ? 'selected' : ''}>${s}</option>`
+            ).join('')}
+          </select>
+        </div>
+      </div>
+
+      <div class="flex gap-2 justify-end">
+        <button type="button" class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-p">${isEdit ? 'Save changes' : '+ Create unit'}</button>
+      </div>
+    </form>
+  `);
+}
+
+function submitUnitForm(form, id){
+  guard(() => {
+    const data = {
+      name: form.name.value, description: form.description.value,
+      managerId: form.managerId.value || null,
+      category: form.category.value,
+      initialCapital: form.initialCapital.value,
+      status: form.status.value,
+    };
+    if (id) {
+      UnitService.update(id, data);
+      toast('Unit updated');
+    } else {
+      const u = UnitService.create(data);
+      toast('Unit created: ' + u.name);
+    }
+    DB.save();
+    closeModal();
+    safeRender();
+  })();
+}
+
+function handleDeleteUnit(id){
+  const u = state.units.find(x => x.id === id);
+  if (!u) return;
+  const cap = Ledger.balance(`UNIT-${id}`);
+  const hasCapital = Math.abs(cap) > 0.01;
+
+  openModal(`
+    <h2 class="text-lg font-bold text-rose-700 mb-1">Delete business unit</h2>
+    <p class="text-sm text-slate-600 mb-3">Remove <strong>${esc(u.name)}</strong>?</p>
+
+    ${hasCapital ? `
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3 text-xs text-amber-800">
+        <div class="font-semibold mb-1">Unit holds ${money(cap)} in capital.</div>
+        <div>Choose how to clear it before deletion:</div>
+      </div>` : ''}
+
+    <p class="text-xs text-slate-500 mb-4">
+      ${hasCapital
+        ? '<strong>Return to cash</strong> moves capital back to cash. <strong>Write-off</strong> moves it to equity.'
+        : 'This unit has no capital and can be deleted safely.'}
+    </p>
+
+    <div class="flex flex-wrap gap-2 justify-end">
+      <button class="btn btn-s" onclick="closeModal()">Cancel</button>
+      ${!hasCapital
+        ? `<button class="btn btn-r" onclick="confirmDeleteUnit('${id}')">Yes, delete</button>`
+        : `<button class="btn btn-r" onclick="confirmUnitWriteoff('${id}')">Write-off to equity</button>
+           <button class="btn btn-p" onclick="confirmUnitReturn('${id}')">Return to cash</button>`}
+    </div>
+  `);
+}
+
+function confirmDeleteUnit(id){
+  guard(() => {
+    UnitService.remove(id);
+    DB.save();
+    closeModal();
+    toast('Unit deleted');
+    safeRender();
+  })();
+}
+
+function confirmUnitReturn(id){
+  openModal(`
+    <h2 class="text-lg font-bold text-slate-800 mb-1">Return capital to cash</h2>
+    <p class="text-sm text-slate-600 mb-4">Moves all unit capital back to Cash &amp; Bank, then deletes the unit.</p>
+    <div class="flex gap-2 justify-end">
+      <button class="btn btn-s" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-p" onclick="doUnitReturn('${id}')">Return &amp; delete</button>
+    </div>
+  `);
+}
+
+function doUnitReturn(id){
+  guard(() => {
+    UnitService.forceRemove(id);
+    DB.save();
+    closeModal();
+    toast('Capital returned and unit deleted');
+    safeRender();
+  })();
+}
+
+function confirmUnitWriteoff(id){
+  openModal(`
+    <h2 class="text-lg font-bold text-rose-700 mb-1">Write-off unit capital</h2>
+    <p class="text-sm text-slate-600 mb-4">Moves all unit capital to group equity, then deletes the unit.</p>
+    <div class="flex gap-2 justify-end">
+      <button class="btn btn-s" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-r" onclick="doUnitWriteoff('${id}')">Write-off &amp; delete</button>
+    </div>
+  `);
+}
+
+function doUnitWriteoff(id){
+  guard(() => {
+    UnitService.writeOff(id);
+    DB.save();
+    closeModal();
+    toast('Unit written off and deleted');
+    safeRender();
+  })();
+}
+
+/* ----- SAVINGS ----- */
+views.savings = () => {
+  const memberCount = MemberService.list().length;
+  if (memberCount === 0) {
+    return `
+    ${header('Savings', 'Record member deposits and withdrawals.')}
+    <div class="card p-5">${emptyState('◐', 'No members to save yet',
+      'You need at least one member before you can record savings.',
+      'Add first member', 'openMemberForm()')}</div>`;
+  }
+
+  const balances = MemberService.list()
+    .map(m => ({ id: m.id, name: m.name, balance: Ledger.balance(`SAV-${m.id}`) }))
+    .sort((a, b) => b.balance - a.balance);
+
+  const balanceRows = balances.map(b => `
+    <tr>
+      <td><div class="flex items-center gap-2">${avatar(b.name, 'w-7 h-7')}<span class="text-sm">${esc(b.name)}</span></div></td>
+      <td class="text-right mono font-semibold ${b.balance < 0 ? 'text-rose-700' : ''}">${money(b.balance)}</td>
+    </tr>`).join('');
+
+  const txs = state.journalEntries.slice().reverse()
+    .filter(e => e.type === 'SAVINGS_DEPOSIT' || e.type === 'SAVINGS_WITHDRAWAL')
+    .slice(0, 20);
+
+  const txRows = txs.length ? txs.map(e => `
+    <tr>
+      <td class="text-slate-400 text-xs whitespace-nowrap">${dtShort(e.date)}</td>
+      <td class="text-sm">${esc(mName(e.metadata?.memberId))}</td>
+      <td>${e.type === 'SAVINGS_DEPOSIT'
+        ? '<span class="pill bg-emerald-100 text-emerald-800">Deposit</span>'
+        : '<span class="pill bg-rose-100 text-rose-800">Withdraw</span>'}</td>
+      <td class="text-right mono font-semibold">${money(e.metadata?.amount || 0)}</td>
+      <td class="text-right">
+        ${e.reversedAt
+          ? '<span class="text-xs text-slate-400">reversed</span>'
+          : `<button class="btn btn-r btn-xs" onclick="handleReverseEntry('${e.id}')">Reverse</button>`}
+      </td>
+    </tr>`).join('') : `<tr><td colspan="5" class="empty">No savings activity yet — click <b>+ Deposit</b> to start.</td></tr>`;
+
+  return `
+  ${header('Savings', 'Deposits and withdrawals. Each posts a balanced journal entry.',
+    `<button class="btn btn-g" onclick="openSavingsForm('deposit')">+ Deposit</button>
+     <button class="btn btn-r" onclick="openSavingsForm('withdraw')">↑ Withdraw</button>`)}
+
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+    ${kpi('Total Savings', money(Ledger.totalByPrefix('SAV-')))}
+    ${kpi('Cash Position', money(Ledger.balance('1000')))}
+    ${kpi('Transactions', state.journalEntries.filter(e => e.type.startsWith('SAVINGS_')).length)}
+    ${kpi('Members', memberCount)}
+  </div>
+
+  <div class="grid lg:grid-cols-3 gap-4">
+    <div class="card p-5">
+      <h2 class="font-bold text-slate-800 mb-3">Member balances</h2>
+      <div class="max-h-96 overflow-y-auto">
+        <table><tbody>${balanceRows}</tbody></table>
+      </div>
+    </div>
+
+    <div class="card p-5 lg:col-span-2">
+      <h2 class="font-bold text-slate-800 mb-3">Recent transactions</h2>
+      <div class="overflow-x-auto">
+        <table>
+          <thead><tr><th>Date</th><th>Member</th><th>Type</th><th class="text-right">Amount</th><th></th></tr></thead>
+          <tbody>${txRows}</tbody>
+        </table>
+      </div>
+    </div>
+  </div>`;
+};
+
+function openSavingsForm(mode){
+  if (MemberService.list().filter(m => m.status === 'ACTIVE').length === 0) {
+    toast('Add at least one active member first', 'err');
+    openMemberForm();
+    return;
+  }
+  const isDeposit = mode === 'deposit';
+  openModal(`
+    <h2 class="text-lg font-bold text-slate-800 mb-1">${isDeposit ? 'Record deposit' : 'Record withdrawal'}</h2>
+    <form onsubmit="event.preventDefault(); submitSavingsForm(this, '${mode}');">
+      <label class="text-xs font-semibold text-slate-600">Member *</label>
+      <select name="member" class="inp mb-3" required>${memberOpts()}</select>
+      <label class="text-xs font-semibold text-slate-600">Amount *</label>
+      <input name="amount" type="number" step="0.01" min="0.01" class="inp mb-3" required>
+      ${isDeposit ? `
+        <label class="text-xs font-semibold text-slate-600">Note</label>
+        <input name="note" class="inp mb-4" placeholder="Optional">
+      ` : ''}
+      <div class="flex gap-2 justify-end">
+        <button type="button" class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn ${isDeposit ? 'btn-g' : 'btn-r'}">${isDeposit ? 'Deposit' : 'Withdraw'}</button>
+      </div>
+    </form>
+  `);
+}
+
+function submitSavingsForm(form, mode){
+  guard(() => {
+    if (mode === 'deposit') {
+      SavingsService.deposit(form.member.value, form.amount.value, form.note?.value || '');
+      toast('Deposit recorded');
+    } else {
+      SavingsService.withdraw(form.member.value, form.amount.value);
+      toast('Withdrawal recorded');
+    }
+    DB.save();
+    closeModal();
+    safeRender();
+  })();
+}
+
+function handleReverseEntry(entryId){
+  openModal(`
+    <h2 class="text-lg font-bold text-rose-700 mb-1">Reverse transaction</h2>
+    <p class="text-sm text-slate-600 mb-4">
+      Creates a balanced reversing entry. Blocked if it would push any credit-normal account negative.
+    </p>
+    <form onsubmit="event.preventDefault(); submitReverseEntry(this, '${entryId}');">
+      <label class="text-xs font-semibold text-slate-600">Reason *</label>
+      <input name="reason" class="inp mb-4" placeholder="e.g. Posted in error" required>
+      <div class="flex gap-2 justify-end">
+        <button type="button" class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-r">Reverse entry</button>
+      </div>
+    </form>
+  `);
+}
+
+function submitReverseEntry(form, entryId){
+  guard(() => {
+    SavingsService.reverse(entryId, form.reason.value);
+    DB.save();
+    closeModal();
+    toast('Transaction reversed');
+    safeRender();
+  })();
+}
+
+/* ----- LOANS ----- */
+views.loans = () => {
+  const list = LoanService.list();
+  const rows = list.length ? list.map(ln => {
+    const out = ln.status === 'DISBURSED' ? ln.outstandingPrincipal + ln.outstandingInterest : 0;
+    let action = '';
+    if (ln.status === 'REQUESTED') {
+      action = `<div class="action-btns">
+        <button class="btn btn-g btn-xs" onclick="handleLoanApprove('${ln.id}')">Approve</button>
+        <button class="btn btn-r btn-xs" onclick="handleLoanReject('${ln.id}')">Reject</button>
+      </div>`;
+    } else if (ln.status === 'APPROVED') {
+      action = `<button class="btn btn-p btn-xs" onclick="handleLoanDisburse('${ln.id}')">Disburse</button>`;
+    } else if (ln.status === 'DISBURSED') {
+      action = `<div class="action-btns">
+        <button class="btn btn-g btn-xs" onclick="openLoanRepay('${ln.id}')">Repay</button>
+        <button class="btn btn-r btn-xs" onclick="handleLoanWriteOff('${ln.id}')">Write-off</button>
+      </div>`;
+    } else {
+      action = `<span class="text-xs text-slate-400">—</span>`;
+    }
+    return `<tr>
+      <td>
+        <div class="flex items-center gap-2">${avatar(mName(ln.membershipId), 'w-8 h-8')}
+          <div>
+            <div class="text-sm font-semibold">${esc(mName(ln.membershipId))}</div>
+            <div class="text-[11px] text-slate-400">${esc(ln.loanNumber)}</div>
+          </div>
+        </div>
+      </td>
+      <td class="text-right mono">${money(ln.principal)}</td>
+      <td class="text-right text-sm">${ln.interestRate}%</td>
+      <td class="text-right text-sm">${ln.termMonths}mo</td>
+      <td class="text-right mono text-sm">${money(ln.monthlyPayment)}</td>
+      <td class="text-right mono ${out > 0 ? 'text-rose-700 font-semibold' : 'text-slate-400'}">${out > 0 ? money(out) : '—'}</td>
+      <td>${pill(ln.status)}</td>
+      <td class="text-right">${action}</td>
+    </tr>`;
+  }).join('') : `<tr><td colspan="8">${emptyState('◑', 'No loans yet', 'Submit the first loan request. Members can borrow up to 3× their savings.',
+    'New loan request', 'openLoanForm()')}</td></tr>`;
+
+  return `
+  ${header('Loans', 'Request → approve → disburse → repay. Write-offs post to equity.',
+    `<button class="btn btn-p" onclick="openLoanForm()">+ New loan request</button>`)}
+
+  ${list.length > 0 ? `
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+    ${kpi('Total Loans', list.length)}
+    ${kpi('Disbursed', list.filter(l => l.status === 'DISBURSED').length, '', 'text-indigo-700')}
+    ${kpi('Outstanding', money(Ledger.totalByPrefix('LOAN-')))}
+    ${kpi('Interest Earned', money(Ledger.balance('4000')), '', 'text-emerald-700')}
+  </div>` : ''}
+
+  <div class="card p-5">
+    <h2 class="font-bold text-slate-800 mb-3">Loan book</h2>
+    <div class="overflow-x-auto">
+      <table>
+        <thead><tr>
+          <th>Member</th><th class="text-right">Principal</th><th class="text-right">Rate</th>
+          <th class="text-right">Term</th><th class="text-right">Monthly</th>
+          <th class="text-right">Outstanding</th><th>Status</th><th></th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+};
+
+function openLoanForm(){
+  if (MemberService.list().filter(m => m.status === 'ACTIVE').length === 0) {
+    toast('Add at least one active member first', 'err');
+    openMemberForm();
+    return;
+  }
+  openModal(`
+    <h2 class="text-lg font-bold text-slate-800 mb-1">New loan request</h2>
+    <p class="text-xs text-slate-500 mb-4">Max: savings × ${CONFIG.rules.maxLoanMultiplier}. Min savings: ${money(CONFIG.rules.minSavingsForLoan)}.</p>
+    <form onsubmit="event.preventDefault(); submitLoanForm(this);">
+      <label class="text-xs font-semibold text-slate-600">Member *</label>
+      <select name="member" class="inp mb-3" required>${memberOpts()}</select>
+      <label class="text-xs font-semibold text-slate-600">Principal *</label>
+      <input name="principal" type="number" step="0.01" min="0.01" class="inp mb-3" required>
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div>
+          <label class="text-xs font-semibold text-slate-600">Interest %</label>
+          <input name="rate" type="number" step="0.1" class="inp" value="${CONFIG.rules.defaultInterestRate}">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-slate-600">Term (months)</label>
+          <input name="term" type="number" min="1" class="inp" value="${CONFIG.rules.defaultTermMonths}">
+        </div>
+      </div>
+      <label class="text-xs font-semibold text-slate-600">Purpose</label>
+      <input name="purpose" class="inp mb-4" placeholder="Optional">
+      <div class="flex gap-2 justify-end">
+        <button type="button" class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-p">Submit request</button>
+      </div>
+    </form>
+  `);
+}
+
+function submitLoanForm(form){
+  guard(() => {
+    LoanService.request(form.member.value, form.principal.value, form.rate.value, form.term.value, form.purpose.value);
+    DB.save();
+    closeModal();
+    toast('Loan requested');
+    safeRender();
+  })();
+}
+
+function handleLoanApprove(id){ guard(() => { LoanService.approve(id); DB.save(); toast('Approved'); safeRender(); })(); }
+function handleLoanReject(id){ guard(() => { LoanService.reject(id, ''); DB.save(); toast('Rejected'); safeRender(); })(); }
+function handleLoanDisburse(id){ guard(() => { LoanService.disburse(id); DB.save(); toast('Disbursed'); safeRender(); })(); }
+
+function handleLoanWriteOff(id){
+  const ln = state.loans.find(l => l.id === id);
+  if (!ln) return;
+  const out = round(ln.outstandingPrincipal + ln.outstandingInterest);
+  openModal(`
+    <h2 class="text-lg font-bold text-rose-700 mb-1">Write off loan</h2>
+    <p class="text-sm text-slate-600 mb-4">
+      Mark <strong>${esc(mName(ln.membershipId))}</strong>'s loan of ${money(out)} as bad debt.
+    </p>
+    <p class="text-xs text-slate-500 mb-4">
+      Posts <strong>Debit Group Equity, Credit Loan Receivable</strong> for ${money(out)}.
+    </p>
+    <div class="flex gap-2 justify-end">
+      <button class="btn btn-s" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-r" onclick="doLoanWriteOff('${id}')">Write off</button>
+    </div>
+  `);
+}
+
+function doLoanWriteOff(id){
+  guard(() => {
+    LoanService.writeOff(id);
+    DB.save();
+    closeModal();
+    toast('Loan written off');
+    safeRender();
+  })();
+}
+
+function openLoanRepay(id){
+  const ln = state.loans.find(l => l.id === id);
+  openModal(`
+    <h2 class="text-lg font-bold text-slate-800 mb-1">Loan repayment</h2>
+    <p class="text-xs text-slate-500 mb-4">
+      Principal: ${money(ln.principal)} · Monthly: ${money(ln.monthlyPayment)} · Outstanding: ${money(ln.outstandingPrincipal + ln.outstandingInterest)}
+    </p>
+    <form onsubmit="event.preventDefault(); submitLoanRepay(this, '${id}');">
+      <label class="text-xs font-semibold text-slate-600">Amount *</label>
+      <input name="amount" type="number" step="0.01" min="0.01" class="inp mb-4" value="${ln.monthlyPayment.toFixed(2)}" required>
+      <div class="flex gap-2 justify-end">
+        <button type="button" class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-g">Record repayment</button>
+      </div>
+    </form>
+  `);
+}
+
+function submitLoanRepay(form, id){
+  guard(() => {
+    LoanService.repay(id, form.amount.value);
+    DB.save();
+    closeModal();
+    toast('Repayment recorded');
+    safeRender();
+  })();
+}
+
+/* ----- SUPPORT ----- */
+views.support = () => {
+  const list = CampaignService.list();
+  const cards = list.length ? list.map(c => {
+    const raised = Ledger.balance(`CAMP-${c.id}`);
+    const pct = c.targetAmount > 0 ? Math.min(100, (raised / c.targetAmount) * 100) : 0;
+    return `<div class="card p-5">
+      <div class="flex items-start justify-between gap-2 mb-3">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <h3 class="font-bold text-slate-800 truncate">${esc(c.name)}</h3>
+            ${pill(c.status)}
+          </div>
+          <p class="text-xs text-slate-500 mt-1">${esc(c.description || 'No description')}</p>
+        </div>
+      </div>
+      <div class="h-2 bg-slate-100 rounded-full overflow-hidden mb-3">
+        <div class="h-full rounded-full" style="width:${pct}%;background:linear-gradient(90deg,var(--b600),var(--gold))"></div>
+      </div>
+      <div class="flex items-end justify-between mb-3">
+        <div>
+          <div class="mono font-extrabold text-[#0b3d36] text-lg">${money(raised)}</div>
+          <div class="text-[11px] text-slate-400">of ${money(c.targetAmount)}</div>
+        </div>
+        <span class="text-xs font-bold">${pct.toFixed(0)}%</span>
+      </div>
+      <div class="flex gap-2 justify-end flex-wrap">
+        <button class="btn btn-g btn-xs" onclick="openContribute('${c.id}')">Contribute</button>
+        <button class="btn btn-s btn-xs" onclick="openCampaignForm('${c.id}')">Edit</button>
+        <button class="btn btn-r btn-xs" onclick="handleDeleteCampaign('${c.id}')">Delete</button>
+      </div>
+    </div>`;
+  }).join('') : `<div class="col-span-full card p-5">${emptyState('♡', 'No campaigns yet', 'Create a support fund for education, medical emergencies, or small business growth.',
+    'Create first campaign', 'openCampaignForm()')}</div>`;
+
+  return `
+  ${header('Support Funds', 'Community campaigns funded by member contributions.',
+    `<button class="btn btn-p" onclick="openCampaignForm()">+ New campaign</button>`)}
+
+  ${list.length > 0 ? `
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+    ${kpi('Total Funds', money(Ledger.totalByPrefix('CAMP-')))}
+    ${kpi('Active', list.filter(c => c.status === 'ACTIVE').length, '', 'text-emerald-700')}
+    ${kpi('Campaigns', list.length)}
+    ${kpi('Contributors', new Set(state.journalEntries.filter(e => e.type === 'SUPPORT_CONTRIBUTION').map(e => e.metadata?.memberId)).size)}
+  </div>` : ''}
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">${cards}</div>`;
+};
+
+function openCampaignForm(id){
+  const c = id ? state.campaigns.find(x => x.id === id) : null;
+  const isEdit = !!c;
+  openModal(`
+    <h2 class="text-lg font-bold text-slate-800 mb-1">${isEdit ? 'Edit campaign' : 'New campaign'}</h2>
+    <form onsubmit="event.preventDefault(); submitCampaignForm(this, ${isEdit ? `'${id}'` : 'null'});">
+      <label class="text-xs font-semibold text-slate-600">Campaign name *</label>
+      <input name="name" class="inp mb-3" value="${esc(c?.name || '')}" required>
+
+      <label class="text-xs font-semibold text-slate-600">Target amount</label>
+      <input name="target" type="number" step="0.01" min="0" class="inp mb-3" value="${c?.targetAmount || 0}">
+
+      <label class="text-xs font-semibold text-slate-600">Description</label>
+      <textarea name="description" class="inp mb-3" rows="2">${esc(c?.description || '')}</textarea>
+
+      ${isEdit ? `
+        <label class="text-xs font-semibold text-slate-600">Status</label>
+        <select name="status" class="inp mb-4">
+          ${['ACTIVE','PAUSED','COMPLETED','CANCELLED'].map(s =>
+            `<option value="${s}" ${c.status === s ? 'selected' : ''}>${s}</option>`
+          ).join('')}
+        </select>
+      ` : '<div class="mb-4"></div>'}
+
+      <div class="flex gap-2 justify-end">
+        <button type="button" class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-p">${isEdit ? 'Save changes' : '+ Create'}</button>
+      </div>
+    </form>
+  `);
+}
+
+function submitCampaignForm(form, id){
+  guard(() => {
+    const data = {
+      name: form.name.value,
+      targetAmount: form.target.value,
+      description: form.description.value,
+    };
+    if (id) {
+      data.status = form.status.value;
+      CampaignService.update(id, data);
+      toast('Campaign updated');
+    } else {
+      CampaignService.create(data);
+      toast('Campaign created');
+    }
+    DB.save();
+    closeModal();
+    safeRender();
+  })();
+}
+
+function handleDeleteCampaign(id){
+  const c = state.campaigns.find(x => x.id === id);
+  if (!c) return;
+  const raised = Ledger.balance(`CAMP-${id}`);
+  const hasFunds = Math.abs(raised) > 0.01;
+  const others = CampaignService.list().filter(x => x.id !== id && x.status === 'ACTIVE');
+
+  openModal(`
+    <h2 class="text-lg font-bold text-rose-700 mb-1">Delete campaign</h2>
+    <p class="text-sm text-slate-600 mb-3">Remove <strong>${esc(c.name)}</strong>?</p>
+
+    ${hasFunds ? `
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3 text-xs text-amber-800">
+        <div class="font-semibold mb-1">This campaign holds ${money(raised)} in funds.</div>
+        <div>Clear the balance before deleting:</div>
+      </div>` : ''}
+
+    <p class="text-xs text-slate-500 mb-4">
+      ${hasFunds
+        ? '<strong>Transfer</strong> moves funds to another campaign. <strong>Refund</strong> returns them to contributors. <strong>Write-off</strong> moves them to equity.'
+        : 'No funds. Safe to delete.'}
+    </p>
+
+    <div class="flex flex-wrap gap-2 justify-end">
+      <button class="btn btn-s" onclick="closeModal()">Cancel</button>
+      ${!hasFunds
+        ? `<button class="btn btn-r" onclick="confirmDeleteCampaign('${id}')">Yes, delete</button>`
+        : `<button class="btn btn-r" onclick="openCampaignClear('${id}', 'writeoff')">Write-off</button>
+           <button class="btn btn-gold" onclick="openCampaignClear('${id}', 'refund')">Refund</button>
+           <button class="btn btn-p" onclick="openCampaignClear('${id}', 'transfer')" ${others.length === 0 ? 'disabled' : ''}>Transfer…</button>`}
+    </div>
+  `);
+}
+
+function confirmDeleteCampaign(id){
+  guard(() => {
+    CampaignService.remove(id);
+    DB.save();
+    closeModal();
+    toast('Campaign deleted');
+    safeRender();
+  })();
+}
+
+function openCampaignClear(id, mode){
+  const c = state.campaigns.find(x => x.id === id);
+  const raised = Ledger.balance(`CAMP-${id}`);
+
+  if (mode === 'transfer') {
+    const others = CampaignService.list().filter(x => x.id !== id && x.status === 'ACTIVE');
+    if (others.length === 0) { toast('No other active campaigns', 'err'); return; }
+    openModal(`
+      <h2 class="text-lg font-bold text-slate-800 mb-1">Transfer funds</h2>
+      <p class="text-sm text-slate-600 mb-4">Move ${money(raised)} from <strong>${esc(c.name)}</strong> to another campaign.</p>
+      <form onsubmit="event.preventDefault(); submitCampaignTransfer(this, '${id}');">
+        <label class="text-xs font-semibold text-slate-600">Destination campaign *</label>
+        <select name="target" class="inp mb-3" required>
+          ${others.map(o => `<option value="${o.id}">${esc(o.name)} (${money(Ledger.balance(`CAMP-${o.id}`))})</option>`).join('')}
+        </select>
+        <label class="text-xs font-semibold text-slate-600">Amount</label>
+        <input name="amount" type="number" step="0.01" min="0.01" max="${raised}" class="inp mb-4" value="${raised.toFixed(2)}" required>
+        <div class="flex gap-2 justify-end">
+          <button type="button" class="btn btn-s" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-p">Transfer</button>
+        </div>
+      </form>
+    `);
+  } else if (mode === 'refund') {
+    const contribs = CampaignService.contributors(id);
+    const total = Object.values(contribs).reduce((s, v) => s + v, 0);
+    if (total < 0.01) { toast('No contributions to refund', 'err'); return; }
+    const rows = Object.entries(contribs).map(([mid, amt]) => `
+      <tr>
+        <td class="text-sm">${esc(mName(mid))}</td>
+        <td class="text-right mono text-sm">${money(amt)}</td>
+        <td class="text-right mono text-sm text-emerald-700">${money(round((amt / total) * raised))}</td>
+      </tr>`).join('');
+
+    openModal(`
+      <h2 class="text-lg font-bold text-slate-800 mb-1">Refund contributors</h2>
+      <p class="text-sm text-slate-600 mb-3">Refund ${money(raised)} proportionally. Funds go back to member savings.</p>
+      <div class="bg-slate-50 rounded-lg p-3 mb-4 max-h-64 overflow-y-auto">
+        <table>
+          <thead><tr><th>Member</th><th class="text-right">Contributed</th><th class="text-right">Refund</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div class="flex gap-2 justify-end">
+        <button class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-gold" onclick="doCampaignRefund('${id}')">Refund all</button>
+      </div>
+    `);
+  } else if (mode === 'writeoff') {
+    openModal(`
+      <h2 class="text-lg font-bold text-slate-800 mb-1">Write-off to equity</h2>
+      <p class="text-sm text-slate-600 mb-4">Move ${money(raised)} from <strong>${esc(c.name)}</strong> to group equity, then delete.</p>
+      <div class="flex gap-2 justify-end">
+        <button class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-r" onclick="doCampaignWriteoff('${id}')">Write-off &amp; delete</button>
+      </div>
+    `);
+  }
+}
+
+function submitCampaignTransfer(form, id){
+  guard(() => {
+    const targetId = form.target.value;
+    const amount = round(num(form.amount.value));
+    const c = state.campaigns.find(x => x.id === id);
+    const t = state.campaigns.find(x => x.id === targetId);
+    if (!c || !t) throw new Error('Campaign not found');
+    const raised = Ledger.balance(`CAMP-${id}`);
+    if (amount <= 0) throw new Error('Amount must be greater than zero');
+    if (amount > raised + 0.01) throw new Error(`Cannot transfer more than ${money(raised)}`);
+
+    Ledger.post({
+      description: `Fund transfer · ${c.name} → ${t.name}`,
+      type: 'ADJUSTMENT',
+      reference: id,
+      lines: [
+        { accountCode: `CAMP-${id}`, debit: amount },
+        { accountCode: `CAMP-${targetId}`, credit: amount },
+      ],
+      metadata: { fromCampaignId: id, toCampaignId: targetId, amount },
+    });
+    c.raisedAmount = round(num(c.raisedAmount) - amount);
+    t.raisedAmount = round(num(t.raisedAmount) + amount);
+    audit('campaign.transfer', 'Campaign', id, null, { toCampaignId: targetId, amount });
+
+    DB.save();
+    closeModal();
+    toast(`Transferred ${money(amount)} to ${t.name}`);
+    safeRender();
+  })();
+}
+
+function doCampaignRefund(id){
+  guard(() => {
+    const c = state.campaigns.find(x => x.id === id);
+    const raised = Ledger.balance(`CAMP-${id}`);
+    const contribs = CampaignService.contributors(id);
+    const totalContrib = Object.values(contribs).reduce((s, v) => s + v, 0);
+    if (totalContrib < 0.01) throw new Error('Nothing to refund');
+
+    let refunded = 0;
+    for (const [mid, amt] of Object.entries(contribs)) {
+      const portion = round((amt / totalContrib) * raised);
+      if (portion < 0.01) continue;
+      Ledger.post({
+        description: `Campaign refund · ${c.name} → ${mName(mid)}`,
+        type: 'ADJUSTMENT',
+        reference: id,
+        lines: [
+          { accountCode: `CAMP-${id}`, debit: portion },
+          { accountCode: `SAV-${mid}`, credit: portion },
+        ],
+        metadata: { campaignId: id, memberId: mid, amount: portion },
+      });
+      refunded = round(refunded + portion);
+    }
+    c.raisedAmount = 0;
+    audit('campaign.refund', 'Campaign', id, null, { total: refunded, recipients: Object.keys(contribs).length });
+
+    DB.save();
+    closeModal();
+    toast(`Refunded ${money(refunded)} to ${Object.keys(contribs).length} contributors`);
+    safeRender();
+  })();
+}
+
+function doCampaignWriteoff(id){
+  guard(() => {
+    const c = state.campaigns.find(x => x.id === id);
+    const raised = Ledger.balance(`CAMP-${id}`);
+    if (raised > 0.01) {
+      Ledger.post({
+        description: `Campaign write-off · ${c.name}`,
+        type: 'ADJUSTMENT',
+        reference: id,
+        lines: [
+          { accountCode: `CAMP-${id}`, debit: raised },
+          { accountCode: '3100', credit: raised },
+        ],
+        metadata: { campaignId: id, amount: raised, reason: 'write_off' },
+      });
+    }
+    c.raisedAmount = 0;
+    audit('campaign.writeoff', 'Campaign', id, null, { amount: raised });
+
+    CampaignService.remove(id);
+    DB.save();
+    closeModal();
+    toast('Campaign written off and deleted');
+    safeRender();
+  })();
+}
+
+function openContribute(campaignId){
+  if (MemberService.list().filter(m => m.status === 'ACTIVE').length === 0) {
+    toast('Add at least one active member first', 'err');
+    return;
+  }
+  openModal(`
+    <h2 class="text-lg font-bold text-slate-800 mb-1">Contribute to ${esc(cName(campaignId))}</h2>
+    <form onsubmit="event.preventDefault(); submitContribute(this, '${campaignId}');">
+      <label class="text-xs font-semibold text-slate-600">Member *</label>
+      <select name="member" class="inp mb-3" required>${memberOpts()}</select>
+      <label class="text-xs font-semibold text-slate-600">Amount *</label>
+      <input name="amount" type="number" step="0.01" min="0.01" class="inp mb-4" required>
+      <div class="flex gap-2 justify-end">
+        <button type="button" class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-g">Contribute</button>
+      </div>
+    </form>
+  `);
+}
+
+function submitContribute(form, campaignId){
+  guard(() => {
+    CampaignService.contribute(form.member.value, campaignId, form.amount.value);
+    DB.save();
+    closeModal();
+    toast('Contribution recorded');
+    safeRender();
+  })();
+}
+
+/* ----- SHARES ----- */
+views.shares = () => {
+  const price = state.org.sharePrice;
+  const holdings = state.shareholdings.filter(h => h.sharesOwned > 0).sort((a, b) => b.sharesOwned - a.sharesOwned);
+  const totalShares = holdings.reduce((s, h) => s + h.sharesOwned, 0);
+  const totalValue = totalShares * price;
+
+  const rows = holdings.length ? holdings.map(h => {
+    const pct = totalShares > 0 ? (h.sharesOwned / totalShares) * 100 : 0;
+    return `<tr>
+      <td><div class="flex items-center gap-2">${avatar(mName(h.membershipId), 'w-8 h-8')}<span class="text-sm font-medium">${esc(mName(h.membershipId))}</span></div></td>
+      <td class="text-right mono">${h.sharesOwned}</td>
+      <td class="text-right mono font-semibold">${money(h.sharesOwned * price)}</td>
+      <td class="text-right">
+        <div class="flex items-center gap-2 justify-end">
+          <div class="w-20 h-2 bg-slate-100 rounded-full overflow-hidden">
+            <div class="h-full bg-[#c9a227]" style="width:${pct}%"></div>
+          </div>
+          <span class="text-xs mono w-10">${pct.toFixed(1)}%</span>
+        </div>
+      </td>
+    </tr>`;
+  }).join('') : `<tr><td colspan="4">${emptyState('◆', 'No shareholders yet', 'Sell the first shares to a member. Paid from their savings.',
+    'Buy shares', "openShareTrade('buy')")}</td></tr>`;
+
+  return `
+  ${header('Shares & Equity', 'Buy and sell shares. Paid from member savings.',
+    `<button class="btn btn-gold" onclick="openShareTrade('buy')">◆ Buy shares</button>
+     <button class="btn btn-s" onclick="openShareTrade('sell')">Sell shares</button>`)}
+
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+    ${kpi('Share Price', money(price))}
+    ${kpi('Shares Issued', totalShares.toLocaleString(), '', 'text-[#c9a227]')}
+    ${kpi('Share Capital', money(totalValue), '', 'text-[#c9a227]')}
+    ${kpi('Shareholders', holdings.length)}
+  </div>
+
+  <div class="card p-5">
+    <h2 class="font-bold text-slate-800 mb-3">Shareholder register</h2>
+    <div class="overflow-x-auto">
+      <table>
+        <thead><tr><th>Member</th><th class="text-right">Shares</th><th class="text-right">Value</th><th class="text-right">Ownership</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`;
+};
+
+function openShareTrade(mode){
+  if (MemberService.list().filter(m => m.status === 'ACTIVE').length === 0) {
+    toast('Add at least one active member first', 'err');
+    openMemberForm();
+    return;
+  }
+  const isBuy = mode === 'buy';
+  openModal(`
+    <h2 class="text-lg font-bold text-slate-800 mb-1">${isBuy ? 'Buy' : 'Sell'} shares</h2>
+    <p class="text-xs text-slate-500 mb-4">${isBuy ? 'Paid from member savings' : 'Proceeds go to cash'}</p>
+    <form onsubmit="event.preventDefault(); submitShareTrade(this, '${mode}');">
+      <label class="text-xs font-semibold text-slate-600">Member *</label>
+      <select name="member" class="inp mb-3" required>${memberOpts()}</select>
+      <label class="text-xs font-semibold text-slate-600">Quantity *</label>
+      <input name="qty" type="number" min="1" class="inp mb-3" required>
+      <label class="text-xs font-semibold text-slate-600">Price per share</label>
+      <input name="price" type="number" step="0.01" class="inp mb-4" value="${state.org.sharePrice}" required>
+      <div class="flex gap-2 justify-end">
+        <button type="button" class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn ${isBuy ? 'btn-gold' : 'btn-s'}">${isBuy ? 'Buy' : 'Sell'}</button>
+      </div>
+    </form>
+  `);
+}
+
+function submitShareTrade(form, mode){
+  guard(() => {
+    if (mode === 'buy') {
+      ShareService.buy(form.member.value, form.qty.value, form.price.value);
+      toast('Shares purchased');
+    } else {
+      ShareService.sell(form.member.value, form.qty.value, form.price.value);
+      toast('Shares sold');
+    }
+    DB.save();
+    closeModal();
+    safeRender();
+  })();
+}
+
+/* ----- CAPITAL FORM (dashboard quick action) ----- */
+function openCapitalForm(){
+  openModal(`
+    <h2 class="text-lg font-bold text-slate-800 mb-1">Add opening capital</h2>
+    <p class="text-xs text-slate-500 mb-4">Fund the group's cash account. This posts <strong>Debit Cash, Credit Group Equity</strong>.</p>
+    <form onsubmit="event.preventDefault(); submitCapitalForm(this);">
+      <label class="text-xs font-semibold text-slate-600">Amount *</label>
+      <input name="amount" type="number" step="0.01" min="0.01" class="inp mb-3" required>
+      <label class="text-xs font-semibold text-slate-600">Note</label>
+      <input name="note" class="inp mb-4" placeholder="e.g. Founder capital" value="Founder capital">
+      <div class="flex gap-2 justify-end">
+        <button type="button" class="btn btn-s" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-g">Add capital</button>
+      </div>
+    </form>
+  `);
+}
+
+function submitCapitalForm(form){
+  guard(() => {
+    const amount = round(num(form.amount.value));
+    if (amount <= 0) throw new Error('Amount must be greater than zero');
+    Ledger.post({
+      description: `Capital contribution · ${form.note.value || 'Founder capital'}`,
+      type: 'CAPITAL_INJECTION',
+      lines: [
+        { accountCode: '1000', debit: amount },
+        { accountCode: '3100', credit: amount },
+      ],
+      metadata: { amount, note: form.note.value },
+    });
+    audit('capital.inject', 'JournalEntry', null, null, { amount });
+    DB.save();
+    closeModal();
+    toast(`Added ${money(amount)} in capital`);
+    safeRender();
+  })();
+}
+
+/* ----- LEDGER ----- */
+views.ledger = () => {
+  const verify = Ledger.verify();
+  const accounts = state.accounts.slice().sort((a, b) => a.code.localeCompare(b.code));
+  const hasEntries = state.journalEntries.length > 0;
+
+  const acctRows = accounts.map(a => {
+    let label = a.name;
+    if (a.membershipId) label += ' · ' + mName(a.membershipId);
+    return `<tr>
+      <td class="text-xs mono text-slate-400">${esc(a.code)}</td>
+      <td class="text-sm">${esc(label)}</td>
+      <td class="text-xs text-slate-400 capitalize">${esc(a.type)}</td>
+      <td class="text-right mono font-semibold ${num(a.balance) < 0 ? 'text-rose-700' : ''}">${money(a.balance)}</td>
+    </tr>`;
+  }).join('');
+
+  const recent = state.journalEntries.slice(-40).reverse();
+  const entries = recent.length ? recent.map(e => {
+    const lines = state.journalLines.filter(l => l.journalEntryId === e.id).map(l => {
+      const acc = state.accounts.find(a => a.id === l.accountId);
+      let label = acc ? acc.name : '?';
+      if (acc?.membershipId) label += ' · ' + mName(acc.membershipId);
+      return `<tr class="bg-[#f9fbfb]">
+        <td class="pl-8 text-slate-600 text-xs">${esc(label)}</td>
+        <td class="text-right mono text-xs">${num(l.debit) ? money(l.debit) : ''}</td>
+        <td class="text-right mono text-xs">${num(l.credit) ? money(l.credit) : ''}</td>
+      </tr>`;
+    }).join('');
+    return `<tr class="bg-white">
+      <td colspan="3" class="pt-4 pb-1">
+        <div class="flex justify-between items-baseline flex-wrap gap-2">
+          <span class="font-semibold text-sm text-slate-800">${esc(e.description)}</span>
+          <span class="text-[11px] text-slate-400 mono">${dtLong(e.date)}</span>
+        </div>
+      </td>
+    </tr>${lines}`;
+  }).join('') : `<tr><td class="empty">No entries yet. Your journal will populate as you use the platform.</td></tr>`;
+
+  return `
+  ${header('General Ledger', 'Every transaction is a balanced double-entry. Debits equal credits.')}
+
+  <div class="card p-4 mb-4 ${verify.balanced ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'}">
+    <div class="flex items-center justify-between flex-wrap gap-2">
+      <div class="flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full ${verify.balanced ? 'bg-emerald-500' : 'bg-rose-500'}"></span>
+        <div>
+          <div class="font-semibold text-sm ${verify.balanced ? 'text-emerald-800' : 'text-rose-800'}">
+            ${verify.balanced ? '✓ Balanced' : '⚠ Out of balance'}
+          </div>
+          <div class="text-xs text-slate-500">Dr ${money(verify.debit)} = Cr ${money(verify.credit)}</div>
+        </div>
+      </div>
+      ${hasEntries ? `<button class="btn btn-s btn-xs" onclick="handleRebuild()">Rebuild balances</button>` : ''}
+    </div>
+  </div>
+
+  <div class="grid lg:grid-cols-3 gap-4">
+    <div class="card p-5">
+      <h2 class="font-bold text-slate-800 mb-3">Chart of accounts (${accounts.length})</h2>
+      <div class="max-h-[600px] overflow-y-auto">
+        <table>
+          <thead><tr><th>Code</th><th>Account</th><th>Type</th><th class="text-right">Balance</th></tr></thead>
+          <tbody>${acctRows}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card p-5 lg:col-span-2">
+      <h2 class="font-bold text-slate-800 mb-3">Journal</h2>
+      <div class="overflow-x-auto">
+        <table>
+          <thead><tr><th>Account</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
+          <tbody>${entries}</tbody>
+        </table>
+      </div>
+    </div>
+  </div>`;
+};
+
+function handleRebuild(){
+  guard(() => {
+    Ledger.rebuild();
+    DB.save();
+    toast('Balances rebuilt from journal');
+    safeRender();
+  })();
+}
+
+/* ----- REPORTS ----- */
+views.reports = () => {
+  const cash = Ledger.balance('1000');
+  const loans = Ledger.totalByPrefix('LOAN-');
+  const savings = Ledger.totalByPrefix('SAV-');
+  const support = Ledger.totalByPrefix('CAMP-');
+  const shares = Ledger.totalByPrefix('SHR-');
+  const units = Ledger.totalByPrefix('UNIT-');
+  const equity = Ledger.balance('3100');
+  const interest = Ledger.balance('4000');
+  const verify = Ledger.verify();
+  const memberCount = MemberService.list().length;
+  const unitCount = UnitService.list().length;
+
+  if (memberCount === 0 && unitCount === 0 && state.journalEntries.length === 0) {
+    return `
+    ${header('Reports', 'Trial balance, member position, and business unit performance.')}
+    <div class="card p-5">${emptyState('▦', 'No data to report yet',
+      'Reports populate automatically as you add members, units, savings and loans.',
+      'Go to dashboard', "go('dashboard')")}</div>`;
+  }
+
+  const tbRows = state.accounts.filter(a => num(a.balance) !== 0)
+    .sort((a, b) => a.code.localeCompare(b.code))
+    .map(a => {
+      let label = a.name;
+      if (a.membershipId) label += ' · ' + mName(a.membershipId);
+      const isDebit = a.normal === 'DEBIT';
+      return `<tr>
+        <td class="text-sm">${esc(label)}</td>
+        <td class="text-right mono">${isDebit && a.balance ? money(a.balance) : '—'}</td>
+        <td class="text-right mono">${!isDebit && a.balance ? money(a.balance) : '—'}</td>
+      </tr>`;
+    }).join('') || `<tr><td colspan="3" class="empty">No accounts with balance</td></tr>`;
+
+  const memberRows = MemberService.list().map(m => {
+    const sav = Ledger.balance(`SAV-${m.id}`);
+    const shr = Ledger.balance(`SHR-${m.id}`);
+    const loan = Ledger.balance(`LOAN-${m.id}`);
+    return `<tr>
+      <td class="text-sm">${esc(m.name)}</td>
+      <td class="text-right mono">${money(sav)}</td>
+      <td class="text-right mono text-[#c9a227]">${money(shr)}</td>
+      <td class="text-right mono ${loan > 0 ? 'text-rose-700 font-semibold' : 'text-slate-400'}">${money(loan)}</td>
+      <td class="text-right mono font-semibold">${money(sav + shr - loan)}</td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="5" class="empty">No members yet</td></tr>`;
+
+  const unitRows = UnitService.list().map(u => {
+    const cap = Ledger.balance(`UNIT-${u.id}`);
+    return `<tr>
+      <td class="text-sm font-medium">${esc(u.name)}</td>
+      <td class="text-xs text-slate-400">${esc(u.code)}</td>
+      <td class="text-sm">${u.managerId ? esc(mName(u.managerId)) : '—'}</td>
+      <td>${pill(u.status)}</td>
+      <td class="text-right mono font-semibold text-[#c9a227]">${money(cap)}</td>
+    </tr>`;
+  }).join('') || `<tr><td colspan="5" class="empty">No business units yet</td></tr>`;
+
+  return `
+  ${header('Reports', 'Trial balance, member position, and business unit performance.')}
+
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+    ${kpi('Total Assets', money(cash + loans), 'Cash + loans')}
+    ${kpi('Total Liabilities', money(savings + support), 'Savings + funds')}
+    ${kpi('Total Equity', money(equity + shares + units), 'Capital + shares + units', 'text-[#c9a227]')}
+    ${kpi('Interest Income', money(interest), 'Earned', 'text-emerald-700')}
+  </div>
+
+  <div class="card p-5 mb-4">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="font-bold text-slate-800">Trial balance</h2>
+      <button class="btn btn-s btn-xs" onclick="window.print()">🖨 Print</button>
+    </div>
+    <div class="overflow-x-auto">
+      <table>
+        <thead><tr><th>Account</th><th class="text-right">Debit</th><th class="text-right">Credit</th></tr></thead>
+        <tbody>${tbRows}</tbody>
+        <tfoot>
+          <tr class="border-t-2 border-[#e5ebe9] bg-[#f9fbfb]">
+            <td class="font-extrabold text-[#0b3d36]">TOTAL</td>
+            <td class="text-right mono font-extrabold text-[#0b3d36]">${money(verify.debit)}</td>
+            <td class="text-right mono font-extrabold text-[#0b3d36]">${money(verify.credit)}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p class="text-[11px] mt-3 font-semibold ${verify.balanced ? 'text-emerald-600' : 'text-rose-600'}">
+      ${verify.balanced ? '✓ Ledger balanced.' : '⚠ Out of balance.'}
+    </p>
+  </div>
+
+  <div class="grid lg:grid-cols-2 gap-4">
+    <div class="card p-5">
+      <h2 class="font-bold text-slate-800 mb-3">Member position</h2>
+      <div class="overflow-x-auto">
+        <table>
+          <thead><tr><th>Member</th><th class="text-right">Savings</th><th class="text-right">Shares</th><th class="text-right">Loan</th><th class="text-right">Net</th></tr></thead>
+          <tbody>${memberRows}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card p-5">
+      <h2 class="font-bold text-slate-800 mb-3">Business units</h2>
+      <div class="overflow-x-auto">
+        <table>
+          <thead><tr><th>Unit</th><th>Code</th><th>Manager</th><th>Status</th><th class="text-right">Capital</th></tr></thead>
+          <tbody>${unitRows}</tbody>
+        </table>
+      </div>
+    </div>
+  </div>`;
+};
+
+/* ----- SETTINGS ----- */
+views.settings = () => {
+  const verify = Ledger.verify();
+  return `
+  ${header('Settings', 'Organization configuration and data management.')}
+
+  <div class="grid lg:grid-cols-2 gap-4">
+    <div class="card p-5">
+      <h2 class="font-bold text-slate-800 mb-4">Organization</h2>
+      <form onsubmit="event.preventDefault(); submitSettings(this);">
+        <label class="text-xs font-semibold text-slate-600">Name</label>
+        <input name="name" class="inp mb-3" value="${esc(state.org.name)}" required>
+
+        <label class="text-xs font-semibold text-slate-600">Legal name</label>
+        <input name="legalName" class="inp mb-3" value="${esc(state.org.legalName || '')}" placeholder="e.g. Ziyarah Digital Business Group Ltd">
+
+        <div class="grid grid-cols-2 gap-3 mb-3">
+          <div>
+            <label class="text-xs font-semibold text-slate-600">Currency</label>
+            <input name="currency" class="inp" value="${esc(state.org.currency)}">
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-slate-600">Symbol</label>
+            <input name="symbol" class="inp" value="${esc(state.org.symbol)}">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mb-4">
+          <div>
+            <label class="text-xs font-semibold text-slate-600">Share price</label>
+            <input name="sharePrice" type="number" step="0.01" class="inp" value="${state.org.sharePrice}">
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-slate-600">Founded</label>
+            <input name="founded" type="date" class="inp" value="${state.org.founded || ''}">
+          </div>
+        </div>
+
+        <button class="btn btn-p w-full" type="submit">Save settings</button>
+      </form>
+    </div>
+
+    <div class="space-y-4">
+      <div class="card p-5">
+        <h2 class="font-bold text-slate-800 mb-1">Demo data</h2>
+        <p class="text-xs text-slate-500 mb-3">Load or reload the sample dataset to explore the platform.</p>
+        <button class="btn btn-s w-full" onclick="loadDemoConfirm()">▶ Load demo data</button>
+      </div>
+
+      <div class="card p-5">
+        <h2 class="font-bold text-slate-800 mb-4">Data management</h2>
+        <button class="btn btn-p w-full mb-2" onclick="DB.export()">⬇ Export backup (JSON)</button>
+        <label class="btn btn-s w-full cursor-pointer mb-2">
+          ⬆ Import backup
+          <input type="file" accept="application/json" class="hidden" onchange="handleImport(event)">
+        </label>
+        <button class="btn btn-r w-full" onclick="confirmReset()">Reset to empty state</button>
+      </div>
+
+      <div class="card p-5">
+        <h2 class="font-bold text-slate-800 mb-4">System status</h2>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-slate-500">Ledger</span>
+            <span class="font-semibold ${verify.balanced ? 'text-emerald-700' : 'text-rose-700'}">${verify.balanced ? '✓ Balanced' : '⚠ Broken'}</span>
+          </div>
+          <div class="flex justify-between"><span class="text-slate-500">Schema version</span><span class="font-semibold">v${state.schemaVersion}</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">Storage</span><span class="font-semibold">${DB.sizeKB()} KB</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">Total records</span><span class="font-semibold">${DB.count()}</span></div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+};
+
+function submitSettings(form){
+  guard(() => {
+    Object.assign(state.org, {
+      name: form.name.value, legalName: form.legalName.value,
+      currency: form.currency.value.toUpperCase(), symbol: form.symbol.value,
+      sharePrice: round(num(form.sharePrice.value)) || 100,
+      founded: form.founded.value,
+    });
+    DB.save();
+    toast('Settings saved');
+    safeRender();
+  })();
+}
+
+async function handleImport(event){
+  const f = event.target.files[0];
+  if (!f) return;
+  try {
+    await DB.import(f);
+    state = DB.load();
+    currentUser = state.members.find(m => m.role === 'ADMIN') || state.members[0] || null;
+    toast('Backup imported');
+    safeRender();
+  } catch (e) { toast('Import failed: ' + e.message, 'err'); }
+}
+
+function confirmReset(){
+  openModal(`
+    <h2 class="text-lg font-bold text-rose-700 mb-1">Reset to empty state?</h2>
+    <p class="text-sm text-slate-600 mb-4">Deletes all members, units, campaigns, loans and journal entries. Chart of accounts is re-created.</p>
+    <p class="text-xs text-slate-500 mb-4">Back up first if you need to keep any data.</p>
+    <div class="flex gap-2 justify-end">
+      <button class="btn btn-s" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-r" onclick="doReset()">Yes, reset</button>
+    </div>
+  `);
+}
+
+function doReset(){
+  DB.clear();
+  seed();
+  currentUser = null;
+  closeModal();
+  toast('Platform reset to empty state');
+  go('dashboard');
+  safeRender();
+}
+
+function loadDemoConfirm(){
+  openModal(`
+    <h2 class="text-lg font-bold text-slate-800 mb-1">Load demo data?</h2>
+    <p class="text-sm text-slate-600 mb-4">This replaces all current data with the sample dataset (5 members, 3 units, 2 campaigns, 1 loan).</p>
+    <div class="flex gap-2 justify-end">
+      <button class="btn btn-s" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-p" onclick="doLoadDemo()">Load demo</button>
+    </div>
+  `);
+}
+
+function doLoadDemo(){
+  DB.clear();
+  seedDemo();
+  currentUser = state.members.find(m => m.role === 'ADMIN') || state.members[0] || null;
+  closeModal();
+  toast('Demo data loaded');
+  go('dashboard');
+  safeRender();
+}
+
+/* ============================================================
+   NAV + RENDER
+   ============================================================ */
+function buildNav(){
+  const nav = document.getElementById('navMenu');
+  nav.innerHTML = CONFIG.nav.map(item => {
+    if (item.section) return `<div class="px-4 text-[10px] uppercase tracking-widest text-slate-400 font-bold mt-4 mb-1">${item.section}</div>`;
+    return `<a class="nav-link" data-route="${item.route}" onclick="go('${item.route}'); return false;">
+      <span class="nav-icon">${item.icon}</span><span>${item.label}</span>
+    </a>`;
+  }).join('');
+}
+
+function render(){
+  const { route } = parseRoute();
+  const titles = {
+    dashboard: 'Dashboard', members: 'Members', units: 'Business Units',
+    savings: 'Savings', loans: 'Loans', support: 'Support Funds',
+    shares: 'Shares & Equity', ledger: 'General Ledger',
+    reports: 'Reports', settings: 'Settings',
+  };
+
+  document.getElementById('pageTitle').textContent = titles[route] || 'Dashboard';
+  document.getElementById('breadcrumb').textContent = 'Home / ' + (titles[route] || 'Dashboard');
+  document.getElementById('sideCurrency').textContent = state.org.currency;
+  document.getElementById('userName').textContent = currentUser?.name || 'Not signed in';
+  document.getElementById('userRole').textContent = currentUser ? (CONFIG.roles[currentUser.role] || 'Member') : 'Add a member to start';
+  document.getElementById('userAvatar').textContent = currentUser ? initials(currentUser.name) : '?';
+
+  document.querySelectorAll('[data-route]').forEach(el => {
+    el.classList.toggle('active', el.dataset.route === route);
+  });
+
+  const html = views[route] ? views[route]() : `<div class="card p-10 text-center text-slate-400">Page not found</div>`;
+  document.getElementById('view').innerHTML = html;
+  updateStats();
+}
+
+function safeRender(){
+  try { render(); }
+  catch (e) {
+    console.error('Render failed:', e);
+    document.getElementById('view').innerHTML = `
+      <div class="card p-6 border-l-4 border-l-rose-500">
+        <div class="font-bold text-rose-700 mb-2">Something went wrong</div>
+        <div class="text-sm text-slate-600 mb-2 mono">${esc(e.message)}</div>
+        <div class="flex gap-2 mt-3">
+          <button class="btn btn-s" onclick="safeRender()">Retry</button>
+          <button class="btn btn-r" onclick="if(confirm('Reset data?')){ DB.clear(); location.reload(); }">Reset</button>
+        </div>
+      </div>`;
+  }
+}
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+(function boot(){
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  try { state = DB.load(); } catch (e) { state = null; }
+
+  // First run → empty state
+  if (!state || !state.org) {
+    try { seed(); } catch (e) { console.error('Seed failed:', e); }
+  }
+
+  state = state || {};
+  ['members','units','accounts','journalEntries','journalLines','loans','campaigns',
+   'shareholdings','notifications','auditLogs']
+    .forEach(k => { if (!Array.isArray(state[k])) state[k] = []; });
+  if (!state.org) state.org = { ...CONFIG.org, name: CONFIG.brand.name };
+
+  try { ensureSystemAccounts(); } catch (e) { console.error(e); }
+  try {
+    state.members.forEach(m => {
+      if (!state.shareholdings.find(s => s.membershipId === m.id))
+        state.shareholdings.push({ id: uid('sh_'), membershipId: m.id, sharesOwned: 0, totalInvested: 0 });
+    });
+  } catch (e) { console.error(e); }
+
+  currentUser = state.members.find(m => m.role === 'ADMIN') || state.members[0] || null;
+
+  try { buildNav(); } catch (e) { console.error(e); }
+
+  window.addEventListener('hashchange', safeRender);
+  window.addEventListener('error', e => console.error('Uncaught:', e.error || e.message));
+
+  safeRender();
+})();
+</script>
+</body>
+</html>
